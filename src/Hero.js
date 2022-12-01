@@ -58,11 +58,11 @@ export default function Hero() {
             }),
 
             EBLogo: folder ({
-                EBScale: { value: .006, min: 0.0005, max: 0.01 },
+                EBScale: { value: .0005, min: 0.0001, max: 0.01 },
                 EBRotationX: { value: 0, min: - Math.PI , max: Math.PI },
                 EBRotationY: { value: 0, min: - Math.PI, max: Math.PI },
                 EBPositionX: { value: 0, min: - 3, max: 3 },
-                EBPositionY: { value: -2.2, min: -3, max: 3 },
+                EBPositionY: { value: -1.3, min: -3, max: 3 },
                 EBPositionZ: { value: 1, min: -3, max: 3 },
             }),
 
