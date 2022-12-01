@@ -5,11 +5,11 @@ import Experience from './Experience.js'
 import Holidays from './Holidays.js'
 // import { ScrollControls } from '@react-three/drei'
 
-
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
     <>
+    
         
         <section>
             <Canvas>
@@ -21,7 +21,6 @@ root.render(
                 infinite={false} // Can also scroll infinitely (default: false)
             /> */}
                 <Holidays /> 
-
             </Canvas>
         </section>
         <Canvas

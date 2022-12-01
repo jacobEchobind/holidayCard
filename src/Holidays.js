@@ -38,8 +38,8 @@ function Flake({ random, color = new THREE.Color(), ...props }) {
   )
 }
 
-export default function Holidays()
-{
+export default function Holidays() {
+
     const { SnowRange, SnowScale, 
         headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
         EBScale, EBRotationX, EBRotationY, EBPositionX, EBPositionY, EBPositionZ,
@@ -114,6 +114,7 @@ export default function Holidays()
             resolution={128} 
             blur={3}
         />
+
         <Float
             // speed={ speed }
             // rotationIntensity={ rotationIntensity }
