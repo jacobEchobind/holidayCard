@@ -58,7 +58,7 @@ export default function Hero() {
             }),
 
             EBLogo: folder ({
-                EBScale: { value: .06, min: 0.005, max: 0.1 },
+                EBScale: { value: .006, min: 0.0005, max: 0.01 },
                 EBRotationX: { value: 0, min: - Math.PI , max: Math.PI },
                 EBRotationY: { value: 0, min: - Math.PI, max: Math.PI },
                 EBPositionX: { value: 0, min: - 3, max: 3 },
@@ -104,7 +104,7 @@ export default function Hero() {
 
     const header = useGLTF('./meshes/happy_holidays.glb')
 
-    const EBlogo = useGLTF('./meshes/EB-logo.glb')
+    const EBlogo = useGLTF('./meshes/EBLogo_snow.glb')
 
     return <>
         
