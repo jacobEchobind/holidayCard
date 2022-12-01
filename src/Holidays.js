@@ -7,10 +7,8 @@ import { useFrame } from '@react-three/fiber'
 import { folder, useControls } from 'leva'
 import { data } from './store'
 
-
 function Flakes({ data, range, scale }) {
     const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
-    console.log('nodes', nodes)
     return (
       <Instances range={ range } scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_low_1.geometry}>
         <group position={[0, 0, 0]}>
@@ -173,5 +171,7 @@ export default function Holidays()
             position={ [ CloudPositionX, CloudPositionY, CloudPositionZ ]} // XYZ position
             color={ CloudColor }
         />
+
+
     </>
 }

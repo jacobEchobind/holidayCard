@@ -21,6 +21,7 @@ root.render(
                 infinite={false} // Can also scroll infinitely (default: false)
             /> */}
                 <Holidays /> 
+
             </Canvas>
         </section>
         <Canvas
