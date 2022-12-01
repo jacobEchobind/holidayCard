@@ -110,7 +110,7 @@ export default function Hero() {
         
         <Environment 
             preset={"apartment"}
-            // presets should be used in production
+            // TODO: presets are not supposed to be used in prod
             frames={Infinity} 
             resolution={128} 
             blur={3}
