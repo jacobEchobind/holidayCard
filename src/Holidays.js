@@ -15,9 +15,7 @@ function Flakes({ data, range, scale }) {
       <Instances range={ range } scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_low_1.geometry}>
         <group position={[0, 0, 0]}>
           {data.map((props, i) => (
-
-                <Flake key={i} {...props} />
-
+            <Flake key={i} {...props} />
           ))}
         </group>
       </Instances>
