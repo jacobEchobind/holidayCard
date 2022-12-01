@@ -4,23 +4,26 @@ import { EffectComposer, DepthOfField, Bloom, Noise, Vignette } from '@react-thr
 import * as THREE from 'three'
 import { useRef, useState } from "react"
 import { useFrame } from '@react-three/fiber'
-import { useControls } from 'leva'
+import { folder, useControls } from 'leva'
 import { data } from './store'
 
 
 function Flakes({ data, range, scale }) {
-    const { nodes, materials } = useGLTF('./snowflake.glb')
-    // console.log('data', data)
+    const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
+    console.log('nodes', nodes)
     return (
-      <Instances range={range} scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_1.geometry}>
+      <Instances range={ range } scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_low_1.geometry}>
         <group position={[0, 0, 0]}>
           {data.map((props, i) => (
-            <Flake key={i} {...props} />
+
+                <Flake key={i} {...props} />
+
           ))}
         </group>
       </Instances>
     )
 }
+
 
 function Flake({ random, color = new THREE.Color(), ...props }) {
     const ref = useRef()
@@ -39,55 +42,73 @@ function Flake({ random, color = new THREE.Color(), ...props }) {
   )
 }
 
-
 export default function Holidays()
 {
+    const { SnowRange, SnowScale, 
+        headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
+        EBScale, EBRotationX, EBRotationY, EBPositionX, EBPositionY, EBPositionZ,
+        SubSize, SubColor, SubPositionX, SubPositionY, SubPositionZ,
+        FloatSpeed, FloatRotation, FloatIntensity, FloatRangeX, FloatRangeY,
+        CloudVisible, CloudOpacity, CloudSpeed, CloudWidth, CloudDepth, CloudSegments, CloudPositionX, CloudPositionY, CloudPositionZ, CloudColor
+        } = useControls ('Hero Section', { 
 
-    const { 
-        range, 
-        scale, 
-        // speed, 
-        // rotationIntensity, 
-        // floatIntensity, 
-        // floatingRange1, 
-        // floatingRange2, 
-        headerPosX, 
-        headerPosY, 
-        headerPosZ, 
-        headerRotX, 
-        headerRotY, 
-        headerSize  
-        } = useControls
-    (
+            Header: folder ({
+                headerScale: { value: 0.00045 , min: 0.0002, max: 0.00085 },
+                headerRotationX: { value: 0, min: - Math.PI , max: Math.PI },
+                headerRotationY: { value: 0, min: - Math.PI, max: Math.PI },
+                headerPositionX: { value: 0, min: - 3, max: 3 },
+                headerPositionY: { value: 0.7, min: -3, max: 3 },
+                headerPositionZ: { value: 1.2, min: -3, max: 3 },
+            }),
 
-        'snowflake', 
-        { 
-            range: { value: 100, min: 0, max: 300}, 
-            scale: { value: 1, min: 0, max: 300}
-        },
+            EBLogo: folder ({
+                EBScale: { value: .06, min: 0.005, max: 0.1 },
+                EBRotationX: { value: 0, min: - Math.PI , max: Math.PI },
+                EBRotationY: { value: 0, min: - Math.PI, max: Math.PI },
+                EBPositionX: { value: 0, min: - 3, max: 3 },
+                EBPositionY: { value: -2.2, min: -3, max: 3 },
+                EBPositionZ: { value: 1, min: -3, max: 3 },
+            }),
 
-        // 'Big Header',
-        // {
-        //     headerPosX: { value: 0, min: - 3, max: 3 }, // X position
-        //     headerPosY: { value: 0.7, min: -3, max: 3 }, // Y position
-        //     headerPosZ: { value: 1.2, min: 3, max: 3 }, // Z position
-        //     headerRotX: { value: 0, min: -45, max: 45 }, // text X rotation
-        //     headerRotY: { value: 0, min: -45, max: 45 }, // text Y rotation
-        //     scale: { value: 0.00062, min: 0.00001, max: 0.0008 } // XYZ scale
-        // }
-        // 'Float',
-        // { 
-        // speed: { value: 1, min: 0, max: 20 }, // Animation speed, defaults to 1 
-        // rotationIntensity: { value: 1, min: 0, max: 20}, // XYZ rotation intensity, defaults to 1
-        // floatIntensity: { value: 1, min: 0, max: 20 }, // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
-        // floatingRange1: { value: -1, min: -20, max: 20 }, // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
-        // floatingRange2: { value: 0.1, min: -20, max: 20}
-        // }
+            Subheader: folder ({
+                SubSize: { value: .45, min: 0.01, max: 1 },
+                SubColor: { value: '#26524E' },
+                SubPositionX: { value: 0, min: - 3, max: 3 },
+                SubPositionY: { value: 0, min: -3, max: 3 },
+                SubPositionZ: { value: 0, min: -3, max: 3 },
+            }),
+
+            Snowflakes: folder ({ 
+                SnowRange: { value: 100, min: 0, max: 300}, 
+                SnowScale: { value: 1, min: 0, max: 300} 
+            }),
+
+            FloatAnimation: folder ({
+                FloatSpeed: { value: 1, min: 0, max: 20 },
+                FloatRotation: { value: 1, min: 0, max: 2},
+                FloatIntensity: { value: 1, min: 0, max: 2 },
+                FloatRangeX: { value: -.25, min: -3, max: 3 },
+                FloatRangeY: { value: .25, min: -3, max: 3 }
+            }),
+
+            Clouds: folder ({ 
+                CloudVisible: { value: true }, // Boolean
+                CloudOpacity: { value: 0.8, min: 0, max: 2  }, // Cloud opacity
+                CloudSpeed: { value: 0.025, min: 0, max: 0.5  }, // Rotation speed
+                CloudWidth: { value: 4.5, min: 0, max: 20  }, // Width of the full cloud
+                CloudDepth: { value: 0, min: -2, max: 0  }, // Z-dir depth
+                CloudSegments: { value: 10 }, // Number of particles
+                CloudPositionX: { value: -3, min: -50, max: 50  }, // X position
+                CloudPositionY: { value: 6, min: -50, max: 50  }, // Y position
+                CloudPositionZ: { value: -4, min: -30, max: 0  }, // Z position
+                CloudColor: { value: '#F1F9FA' } // Cloud Color
+             })
+        }
     )
 
-    const header = useGLTF('./happy_holidays.glb')
+    const header = useGLTF('./meshes/happy_holidays.glb')
 
-    const EBlogo = useGLTF('./EB-logo.glb')
+    const EBlogo = useGLTF('./meshes/EB-logo.glb')
 
     return <>
         
@@ -102,19 +123,20 @@ export default function Holidays()
             // rotationIntensity={ rotationIntensity }
             // floatIntensity={ floatIntensity }
             // floatingRange={ [ floatingRange1, floatingRange2 ] }
-            speed={2.5} // Animation speed, defaults to 1
-            rotationIntensity={.5} // XYZ rotation intensity, defaults to 1
-            floatIntensity={1} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
-            floatingRange={[-.25, .25]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
+            speed={ FloatSpeed } // Animation speed, defaults to 1
+            rotationIntensity={ FloatRotation } // XYZ rotation intensity, defaults to 1
+            floatIntensity={ FloatIntensity } // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
+            floatingRange={[ FloatRangeX, FloatRangeY ]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
         >
             <primitive 
                 object={ header.scene } 
                 // position={ [ headerPosX, headerPosY, headerPosZ ] }
                 // rotation={ [ headerRotX, headerRotY, 0 ] }
                 // scale={ headerSize }
-                position={ [ 0, .7, 1.2 ] }
-                rotation-x={ 0 }
-                scale={0.00062}
+                position={ [ headerPositionX, headerPositionY, headerPositionZ ] }
+                rotation-x={ headerRotationX }
+                rotation-y={ headerRotationY }
+                scale={ headerScale }
 
 
 
@@ -124,34 +146,34 @@ export default function Holidays()
             />
             <Text
                 font='./fonts/noto-serif-v21-latin-regular.woff'
-                fontSize={ .45 }
-                position={ [ 0, -0.08, 0 ] }
-                // rotation={ [ 0, -Math.PI/2, 0 ] }
+                fontSize={ SubSize }
+                position={ [ SubPositionX, SubPositionY, SubPositionZ ] }
                 maxWidth={ 10 }
                 textAlign="center"
-                color={'#26524E'}
+                color={ SubColor }
             >
                 From all of us at
             </Text>
             <primitive 
                 object={ EBlogo.scene } 
-                position={ [ 0, -2.2, 1] }
-                scale={.06}
-            />
-            <Flakes 
-                data={ data } 
-                range={ range } 
-                scale={ scale } 
+                position={ [ EBPositionX, EBPositionY, EBPositionZ ] }
+                scale={ EBScale }
+                rotation={ [ EBRotationX, EBRotationY, 0 ] }
             />
         </Float>
+        <Flakes 
+                data={ data } 
+                range={ SnowRange } 
+                scale={ SnowScale } 
+        />
         <Cloud
-            opacity={ 0.8 } // Cloud opacity
-            speed={ 0.025 } // Rotation speed
-            width={ 4.5 } // Width of the full cloud
-            depth={ -3.5 }  // Z-dir depth
-            segments={ 10 } // Number of particles
-            position={ [ -3, 6, -4 ]} // XYZ position
-            color="##F1F9FA"
+            opacity={ CloudOpacity } // Cloud opacity
+            speed={ CloudSpeed } // Rotation speed
+            width={ CloudWidth } // Width of the full cloud
+            depth={ CloudDepth }  // Z-dir depth
+            segments={ CloudSegments } // Number of particles
+            position={ [ CloudPositionX, CloudPositionY, CloudPositionZ ]} // XYZ position
+            color={ CloudColor }
         />
     </>
 }
