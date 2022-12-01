@@ -7,7 +7,7 @@ import {
 import { Portal } from './Portal'
 
 export default function Experience({ position }) {
-  const { viewport } = useThree();
+    const { viewport } = useThree();
 
     return (
         <group position={ position }>

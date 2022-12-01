@@ -34,21 +34,15 @@ canvas
     background: black;
 }
 
-section{
-    display: block;
-    background: lightslategrey;
-    height: 100vh;
-    padding: 0px;
-    margin: 0px;
-}
 
 h1
 {
-    color: whitesmoke;
+    color: black;
     padding: 0;
     margin: 0;
 }
 
 body {
-    background: #101060;
+    background-color: whitesmoke;
+    /* background: #101060; */
   }
