@@ -38,14 +38,14 @@ function Flake({ random, color = new THREE.Color(), ...props }) {
   )
 }
 
-export default function Holidays() {
+export default function Hero() {
 
     const { SnowRange, SnowScale, 
         headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
         EBScale, EBRotationX, EBRotationY, EBPositionX, EBPositionY, EBPositionZ,
         SubSize, SubColor, SubPositionX, SubPositionY, SubPositionZ,
         FloatSpeed, FloatRotation, FloatIntensity, FloatRangeX, FloatRangeY,
-        CloudVisible, CloudOpacity, CloudSpeed, CloudWidth, CloudDepth, CloudSegments, CloudPositionX, CloudPositionY, CloudPositionZ, CloudColor
+        // CloudVisible, CloudOpacity, CloudSpeed, CloudWidth, CloudDepth, CloudSegments, CloudPositionX, CloudPositionY, CloudPositionZ, CloudColor
         } = useControls ('Hero Section', { 
 
             Header: folder ({
@@ -110,16 +110,14 @@ export default function Holidays() {
         
         <Environment 
             preset={"apartment"}
+            // presets should be used in production
             frames={Infinity} 
             resolution={128} 
             blur={3}
+            // remove backgound or set to not visible so we can add the color in CSS
         />
 
         <Float
-            // speed={ speed }
-            // rotationIntensity={ rotationIntensity }
-            // floatIntensity={ floatIntensity }
-            // floatingRange={ [ floatingRange1, floatingRange2 ] }
             speed={ FloatSpeed } // Animation speed, defaults to 1
             rotationIntensity={ FloatRotation } // XYZ rotation intensity, defaults to 1
             floatIntensity={ FloatIntensity } // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
@@ -127,19 +125,10 @@ export default function Holidays() {
         >
             <primitive 
                 object={ header.scene } 
-                // position={ [ headerPosX, headerPosY, headerPosZ ] }
-                // rotation={ [ headerRotX, headerRotY, 0 ] }
-                // scale={ headerSize }
                 position={ [ headerPositionX, headerPositionY, headerPositionZ ] }
                 rotation-x={ headerRotationX }
                 rotation-y={ headerRotationY }
                 scale={ headerScale }
-
-
-
-                // trying to get the scale of 
-                // scale={ (RespViewportWidth * .0000009) *  (window.screen.width ? 1.5 : 1)}
-                // scale={ scale * 0.00000001}
             />
             <Text
                 font='./fonts/noto-serif-v21-latin-regular.woff'
@@ -163,7 +152,7 @@ export default function Holidays() {
                 range={ SnowRange } 
                 scale={ SnowScale } 
         />
-        <Cloud
+        {/* <Cloud
             opacity={ CloudOpacity } // Cloud opacity
             speed={ CloudSpeed } // Rotation speed
             width={ CloudWidth } // Width of the full cloud
@@ -171,7 +160,7 @@ export default function Holidays() {
             segments={ CloudSegments } // Number of particles
             position={ [ CloudPositionX, CloudPositionY, CloudPositionZ ]} // XYZ position
             color={ CloudColor }
-        />
+        /> */}
 
 
     </>

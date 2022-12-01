@@ -2,7 +2,7 @@ import './style.css'
 import ReactDOM from 'react-dom/client'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience.js'
-import Holidays from './Holidays.js'
+import Hero from './Hero.js'
 // import { ScrollControls } from '@react-three/drei'
 
 const root = ReactDOM.createRoot(document.querySelector('#root'))
@@ -20,7 +20,7 @@ root.render(
                 horizontal={false} // Can also scroll horizontally (default: false)
                 infinite={false} // Can also scroll infinitely (default: false)
             /> */}
-                <Holidays /> 
+                <Hero /> 
             </Canvas>
         </section>
         <Canvas
