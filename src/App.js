@@ -42,7 +42,7 @@ const App = () => {
                     0
                 ]} 
             />
-            <Experience position={[0, -viewport.height * 4, 0]} />
+            <Experience position={[0, -viewport.height * 3, 0]} />
         </Scroll>
     </ScrollControls>
   )
