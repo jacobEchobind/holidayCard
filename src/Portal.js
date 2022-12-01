@@ -10,7 +10,7 @@ export function Portal(props) {
   const { nodes, materials } = useGLTF('/meshes/portal.glb');
   const { viewport } = useThree();
   return (
-    <group {...props} dispose={null} scale={viewport.width / 10}>
+    <group {...props} dispose={null} scale={props.scale}>
       <mesh geometry={nodes.Cube.geometry} material={materials.wood} position={[0.91, 0.35, 1.29]} rotation={[0, -0.08, 0]}>
         <mesh geometry={nodes.SnowBall008.geometry} material={materials['Snow.015']} position={[-0.02, 0.07, 0.11]} rotation={[0, 0.08, 0]} />
       </mesh>

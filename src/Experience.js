@@ -1,3 +1,4 @@
+import { useThree } from '@react-three/fiber'
 import { 
     PresentationControls, 
     Float, 
@@ -6,6 +7,8 @@ import {
 import { Portal } from './Portal'
 
 export default function Experience({ position }) {
+  const { viewport } = useThree();
+
     return (
         <group position={ position }>
             <Environment preset='city'/>
@@ -22,7 +25,7 @@ export default function Experience({ position }) {
             >
                 <Float rotationIntensity={ 0.4 }>
                     {/* Picture frame with trees scene model */}
-                    <Portal />
+                    <Portal scale={viewport.width / 10}/>
                 </Float>
             </PresentationControls>
         </group> 
