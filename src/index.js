@@ -7,7 +7,9 @@ import { Canvas } from '@react-three/fiber'
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
-    <Canvas>
+    <Canvas 
+        // camera={{position: [0, 0, 10]}}
+    >
         <App/>
     </Canvas>
 )

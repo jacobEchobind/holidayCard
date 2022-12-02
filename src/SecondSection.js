@@ -1,81 +1,87 @@
+import { useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Flex, Box } from '@react-three/flex'
-import { Text, useGLTF } from '@react-three/drei'
+import { Text, useGLTF, Sphere, useHelper } from '@react-three/drei'
 import { breakpoints } from './App';
+import * as THREE from "three";
+
 
 export const SecondSection = ({ position }) => {
   const { viewport } = useThree();
   // const mobile = viewport.width < breakpoints.small
   const EBlogo = useGLTF('./meshes/EBLogo_snow.glb')
+  const contentMesh = useRef();
+  useHelper(contentMesh, THREE.BoxHelper, "#272730");
+  
+  const textMesh = useRef();
+  useHelper(textMesh, THREE.BoxHelper, "coral");
+
+  const headerMesh = useRef();
+  useHelper(headerMesh, THREE.BoxHelper, "red");
+
+            
 
   return (
     <Flex  
-      position={ position } 
-      // size={[50, 50, 50]}
-      // yogaDirection='ltr'
-      // dir='row' 
-      // width='100%' 
-      // height='100%' 
-      flexDirection='row'
-      justifyContent="center" 
-      alignItems="center"
-      // align='center' 
-      // justify='flex-start' 
-      // plane="xy"
-      // flexWrap='wrap'
-
+      position={position} 
+      size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
+      dir='row'
+      flexWrap='wrap'
+      // padding={.5}
+      margin={1}
+      // centerAnchor
+      alignItems='center'
+      justifyContent='space-between'
     >
-      {/* <Box 
-        dir='row' 
-        // maxWidth='90%' 
-        width='90%' 
-        height='100%' 
-      > */}
 
-         {/* BOX WITH LOGO */}
-         <Box 
-          flexGrow={1}
-          centerAnchor
-          // width={'20%'} 
-          // height='auto'
-          // height={10}
+      {console.log('viewport.width', viewport.width)}
+      <mesh ref={contentMesh}>
+        <Box
+          // height={.5}
+          // width={.5}
+          anchorY='top'
+          marginTop={1}
         >
+          {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
+              <meshLambertMaterial attach="material" color="red" />
+          </Sphere> */}
           <primitive 
-              object={ EBlogo.scene } 
-              position={ [ 0, 1, 0 ] }
-              scale={ .0005 }
-              rotation={ [ 0, 0, 0 ] }
+            object={ EBlogo.scene } 
+            position={ [ 0, 1, 0 ] }
+            scale={ .0003 }
+            rotation={ [ 0, 0, 0 ] }
           />
-      </Box>
-
-        {/*  BOX WITH TEXT */}
-        <Box 
-          // width='20%' 
-          // height='auto'
-          flexGrow={1}
-          centerAnchor
-          // height={10}
-        >
-          <Text 
-            color='black' 
-            // position={[0, 0, 0]}
-            scale={2}
-            maxWidth={(viewport.width / 5)}
-          >
-            SECOND Section
-          </Text>
-          <Text 
-            // anchorX="center"
-            anchorY="top"
-            color='black'
-            position={[0, -0.3, 0]}
-            maxWidth={(viewport.width / 2)}
-          >
-            Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
-          </Text>
         </Box>
-        
-        {/* </Box> */}
+      </mesh>
+
+      <mesh ref={textMesh}>
+        <Box
+          height={1}
+          // height={'auto'}
+          // width={.5}
+          // width={viewport.width}
+          // marginBottom={.75}
+        >
+          <mesh ref={headerMesh}>
+              <Text 
+                color='black' 
+                scale={2}
+                maxWidth={(viewport.width / 2)}
+              >
+                SECOND Section
+              </Text>
+          </mesh>   
+            <Text 
+              anchorY="top"
+              color='black'
+              position={[0, -0.3, 0]}
+              maxWidth={viewport.width > 3 ? 3 : (viewport.width / 2)}
+              // maxWidth={3}
+            >
+              Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
+            </Text>
+        </Box>
+      </mesh>
     </Flex>
   )
 }

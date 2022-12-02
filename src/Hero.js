@@ -102,7 +102,6 @@ export default function Hero() {
     )
 
     const header = useGLTF('./meshes/happy_holidays.glb')
-
     const EBlogo = useGLTF('./meshes/EBLogo_snow.glb')
 
     return <>
