@@ -40,20 +40,31 @@ function Flake({ random, color = new THREE.Color(), ...props }) {
 export default function Hero() {
 
     const { SnowRange, SnowScale, 
-        headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
+        // headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
+        header1Scale, header1RotationX, header1RotationY, header1PositionX, header1PositionY, header1PositionZ,
+        header2Scale, header2RotationX, header2RotationY, header2PositionX, header2PositionY, header2PositionZ,
         EBScale, EBRotationX, EBRotationY, EBPositionX, EBPositionY, EBPositionZ,
         SubSize, SubColor, SubPositionX, SubPositionY, SubPositionZ,
         FloatSpeed, FloatRotation, FloatIntensity, FloatRangeX, FloatRangeY,
         // CloudVisible, CloudOpacity, CloudSpeed, CloudWidth, CloudDepth, CloudSegments, CloudPositionX, CloudPositionY, CloudPositionZ, CloudColor
         } = useControls ('Hero Section', { 
 
-            Header: folder ({
-                headerScale: { value: 0.00045 , min: 0.0002, max: 0.00085 },
-                headerRotationX: { value: 0, min: - Math.PI , max: Math.PI },
-                headerRotationY: { value: 0, min: - Math.PI, max: Math.PI },
-                headerPositionX: { value: 0, min: - 3, max: 3 },
-                headerPositionY: { value: 0.7, min: -3, max: 3 },
-                headerPositionZ: { value: 1.2, min: -3, max: 3 },
+            Header1: folder ({
+                header1Scale: { value: 0.07 , min: .03, max: .1, step: 0.01 },
+                header1RotationX: { value: 0, min: - Math.PI , max: Math.PI },
+                header1RotationY: { value: 0, min: - Math.PI, max: Math.PI },
+                header1PositionX: { value: -2, min: - 3, max: 3, step: 0.01 },
+                header1PositionY: { value: 0.7, min: -3, max: 3, step: 0.01 },
+                header1PositionZ: { value: 1.2, min: -3, max: 3, step: 0.01 },
+            }),
+
+            Header2: folder ({
+                header2Scale: { value: 0.07 , min: .03, max: .1, step: 0.01 },
+                header2RotationX: { value: 0, min: - Math.PI , max: Math.PI },
+                header2RotationY: { value: 0, min: - Math.PI, max: Math.PI },
+                header2PositionX: { value: 2.3, min: -3, max: 3, step: 0.01 },
+                header2PositionY: { value: 0.7, min: -3, max: 3, step: 0.01 },
+                header2PositionZ: { value: 1.2, min: -3, max: 3, step: 0.01 },
             }),
 
             EBLogo: folder ({
@@ -101,7 +112,10 @@ export default function Hero() {
         }
     )
 
-    const header = useGLTF('./meshes/happy_holidays.glb')
+    // const header = useGLTF('./meshes/happy_holidays.glb')
+    const header1 = useGLTF('./meshes/happy.glb')
+    const header2 = useGLTF('./meshes/holidays.glb')
+
     const EBlogo = useGLTF('./meshes/EBLogo_snow.glb')
 
     return <>
@@ -122,11 +136,18 @@ export default function Hero() {
             floatingRange={[ FloatRangeX, FloatRangeY ]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
         >
             <primitive 
-                object={ header.scene } 
-                position={ [ headerPositionX, headerPositionY, headerPositionZ ] }
-                rotation-x={ headerRotationX }
-                rotation-y={ headerRotationY }
-                scale={ headerScale }
+                object={ header1.scene } 
+                position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
+                rotation-x={ header1RotationX }
+                rotation-y={ header1RotationY }
+                scale={ header1Scale }
+            />
+            <primitive 
+                object={ header2.scene } 
+                position={ [ header2PositionX, header2PositionY, header2PositionZ ] }
+                rotation-x={ header2RotationX }
+                rotation-y={ header2RotationY }
+                scale={ header2Scale }
             />
             <Text
                 font='./fonts/noto-serif-v21-latin-regular.woff'
