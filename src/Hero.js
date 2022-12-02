@@ -20,7 +20,6 @@ function Flakes({ data, range, scale }) {
     )
 }
 
-
 function Flake({ random, color = new THREE.Color(), ...props }) {
     const ref = useRef()
     const [ hovered, setHover ] = useState(false)
@@ -161,7 +160,5 @@ export default function Hero() {
             position={ [ CloudPositionX, CloudPositionY, CloudPositionZ ]} // XYZ position
             color={ CloudColor }
         /> */}
-
-
     </>
 }

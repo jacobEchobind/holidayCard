@@ -8,18 +8,13 @@ import { SecondSection } from './SecondSection'
 import { ThirdSection } from './ThirdSection'
 import Experience from './Experience.js'
 
-
-export const breakpoints = {
-    // when viewport.width === 7
-    small: 7
-}
-
-
+// export const breakpoints = {
+//     // when viewport.width === 7
+//     small: 7
+// }
 
 const App = () => {
   const { viewport } = useThree();
-  const mobile = viewport.width < breakpoints.small
-
   return (
     <ScrollControls
         pages={4} // Each page takes 100% of the height of the canvas
@@ -28,20 +23,8 @@ const App = () => {
     >
         <Scroll>
             <Hero /> 
-            <SecondSection 
-                position={[
-                    mobile ? -viewport.width / 1 : -viewport.width / 2.5,
-                    -viewport.height * 2,
-                    0 
-                ]} 
-            />
-            <ThirdSection
-                position={[
-                    mobile ? 0 : -viewport.width / 7,   
-                    -viewport.height * 3,   
-                    0
-                ]} 
-            />
+            <SecondSection position={[ 0, -viewport.height * 1, 0 ]} />
+            <ThirdSection position={[ 0, -viewport.height * 2, 0 ]} />
             <Experience position={[0, -viewport.height * 3, 0]} />
         </Scroll>
     </ScrollControls>
