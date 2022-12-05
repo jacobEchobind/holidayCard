@@ -42,15 +42,15 @@ export const SecondSection = ({ position }) => {
           anchorY='top'
           marginTop={1}
         >
-          {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
+          <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
               <meshLambertMaterial attach="material" color="red" />
-          </Sphere> */}
-          <primitive 
+          </Sphere>
+          {/* <primitive 
             object={ EBlogo.scene } 
             position={ [ 0, 1, 0 ] }
             scale={ .0003 }
             rotation={ [ 0, 0, 0 ] }
-          />
+          /> */}
         </Box>
       </mesh>
 

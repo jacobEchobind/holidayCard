@@ -39,7 +39,6 @@ export const ThirdSection = ({ position }) => {
             height={1}
             // height={'auto'}
             // width={.5}
-            color='red' 
             // width={viewport.width}
             marginBottom={.75}
           >
