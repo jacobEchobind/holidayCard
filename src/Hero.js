@@ -128,7 +128,7 @@ export default function Hero({position}) {
                     // position={position}
                     dir='column' 
                     // size={['100%', viewport.height, 0]} // xyz size to constrain content to
-                    // size={[viewport.width, viewport.height, 0]} 
+                    size={[viewport.width, viewport.height, 0]} 
                     justifyContent='center' 
                     alignItems='center'
                     centerAnchor
@@ -139,36 +139,40 @@ export default function Hero({position}) {
                             flexWrap='wrap'
                             mainAxis="x"
                             crossAxis="y"
-                            // alignItems='center'
+                            alignItems='center'
+                            justifyContent='center'
+                            centerAnchor={false}
                         >
                             <mesh ref={happy}>
-                                <Box>
+                                <Box
+                                    centerAnchor={false}
+                                >
                                     <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
                                         <meshLambertMaterial attach="material" color="red" />
                                     </Sphere>
-                                    <primitive 
+                                    {/* <primitive 
                                         object={ header1.scene } 
                                         // position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
                                         // rotation-x={ header1RotationX }
                                         // rotation-y={ header1RotationY }
                                         // position={[0,0,0]}
                                         scale={ header1Scale }
-                                    />
+                                    /> */}
                                 </Box>
                             </mesh>
                             <mesh ref={holiday}>
-                                <Box marginLeft={.6}>
+                                <Box marginLeft={.6} centerAnchor={false}>
                                     <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
                                         <meshLambertMaterial attach="material" color="red" />
                                     </Sphere>
-                                    <primitive 
+                                    {/* <primitive 
                                         object={ header2.scene } 
                                         // position={[0,0,0]}
                                         // position={ [ header2PositionX, header2PositionY, header2PositionZ ] }
                                         // rotation-x={ header2RotationX }
                                         // rotation-y={ header2RotationY }
                                         scale={ header2Scale }
-                                    />
+                                    /> */}
                                 </Box>
                             </mesh>
                         </Box>
