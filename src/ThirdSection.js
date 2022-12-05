@@ -41,6 +41,7 @@ export const ThirdSection = ({ position }) => {
             // width={.5}
             // width={viewport.width}
             marginBottom={.75}
+            centerAnchor={false}
           >
             <mesh ref={headerMesh}>
                 <Text 
@@ -70,6 +71,7 @@ export const ThirdSection = ({ position }) => {
             height={.5}
             width={.5}
             anchorY='top'
+            centerAnchor={false}
             // marginTop={1}
           >
             {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>

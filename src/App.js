@@ -47,10 +47,10 @@ const App = () => {
                     <mesh ref={heroMesh}>
                         <Hero position={[x, 0, 0]}/> 
                     </mesh>
-
+{/* 
                     <mesh ref={secondMesh}>
                         <SecondSection position={[x, -viewport.height * 1, 0]} />
-                    </mesh>
+                    </mesh> */}
 
                     <directionalLight intensity={0.5} position={[ 0, (-viewport.height * 2 + 5), 3 ]}/>
                     

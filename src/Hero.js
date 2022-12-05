@@ -155,14 +155,13 @@ export default function Hero({position}) {
             {/* <Center>     */}
                 <mesh ref={hero}>
                     <Flex 
-                        position={position}
+                        // position={position}
                         dir='column' 
-                        size={['100%', viewport.height, 0]} // xyz size to constrain content to
-                        // size={[viewport.width, viewport.height, 0]} 
-                        justifyContent='center' 
-                        alignItems='center'
-                        centerAnchor
-
+                        size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
+                        justifyContent='flex-start' 
+                        // alignItems='center'
+                        // centerAnchor={false}
+                        // width='100%'
                     >
                         {/*  H A P P Y   H O L I D A Y S  */}
                         <mesh ref={holidayFlex}>
@@ -171,10 +170,15 @@ export default function Hero({position}) {
                                 flexWrap='wrap'
                                 mainAxis="x"
                                 crossAxis="y"
-                                // alignItems='center'
+                                // centerAnchor={false}
+                                alignItems='center'
+                                centerAnchor={true}
+                                // width="100%"
                             >
                                 <mesh ref={happy}>
-                                    <Box>
+                                    <Box
+                                        centerAnchor={false}
+                                    >
                                         {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
                                             <meshLambertMaterial attach="material" color="red" />
                                         </Sphere> */}
@@ -183,19 +187,20 @@ export default function Hero({position}) {
                                             // position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
                                             // rotation-x={ header1RotationX }
                                             // rotation-y={ header1RotationY }
-                                            // position={[0,0,0]}
                                             scale={ header1Scale }
                                         />
                                     </Box>
                                 </mesh>
                                 <mesh ref={holiday}>
-                                    <Box marginLeft={.6}>
+                                    <Box 
+                                        marginLeft={.6}
+                                        centerAnchor={false}
+                                    >
                                         {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
                                             <meshLambertMaterial attach="material" color="red" />
                                         </Sphere> */}
                                         <primitive 
                                             object={ header2.scene } 
-                                            // position={[0,0,0]}
                                             // position={ [ header2PositionX, header2PositionY, header2PositionZ ] }
                                             // rotation-x={ header2RotationX }
                                             // rotation-y={ header2RotationY }
@@ -206,7 +211,7 @@ export default function Hero({position}) {
                             </Box>
                         </mesh>
 
-                        <mesh>
+                        {/* <mesh>
                             <Box ref={from}>
                                 <Text
                                     font='./fonts/noto-serif-v21-latin-regular.woff'
@@ -219,16 +224,16 @@ export default function Hero({position}) {
                                     From all of us at
                                 </Text>
                             </Box>
-                        </mesh>
+                        </mesh> */}
 
-                        <Box mt={1.2}>
+                        {/* <Box mt={1.2}>
                             <primitive 
                                 object={ EBlogo.scene } 
                                 // position={ [ EBPositionX, EBPositionY, EBPositionZ ] }
                                 scale={ EBScale }
                                 // rotation={ [ EBRotationX, EBRotationY, 0 ] }
                             />
-                        </Box>
+                        </Box> */}
                     </Flex>
                 </mesh>
             {/* </Center> */}
