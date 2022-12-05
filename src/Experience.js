@@ -4,6 +4,7 @@ import {
     Float, 
     Environment, 
 } from '@react-three/drei'
+import { EffectComposer, DepthOfField } from '@react-three/postprocessing';
 import { Portal } from './Portal'
 
 export default function Experience({ position }) {
@@ -12,6 +13,8 @@ export default function Experience({ position }) {
     return (
         <group position={ position }>
             <Environment preset='city'/>
+            <ambientLight intensity={.1} />
+            <pointLight position={[10, 10, 10]} intensity={2} />
             
             {/* these controls are a helper from react three drei and is used instead of orbit controls */}
             <PresentationControls 
