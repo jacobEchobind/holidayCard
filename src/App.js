@@ -20,6 +20,8 @@ const App = () => {
   //   let x = viewport.width / 2
   let x = 0
   
+  const heroMesh = useRef();
+  useHelper(heroMesh, THREE.BoxHelper, "black");
   const secondMesh = useRef();
   useHelper(secondMesh, THREE.BoxHelper, "pink");
   const thirdMesh = useRef();
@@ -29,11 +31,12 @@ const App = () => {
 
   return (
     <>
-        {/* <OrbitControls enableZoom={false}/> */}
+        <OrbitControls enableZoom={false}/>
         <ScrollControls
             pages={4} // Each page takes 100% of the height of the canvas
             distance={1.5} // A factor that increases scroll bar travel (default: 1)
             damping={4} // Friction, higher is faster (default: 4)
+            // width={viewport.width}
         >
             <mesh ref={scrollMesh}>
                 <Scroll>
@@ -41,10 +44,14 @@ const App = () => {
                     <directionalLight intensity={0.2} position={[ 0,  5, 3 ]}/>
                     <directionalLight intensity={0.1} position={[ 0,  0, 5 ]}/>
 
-                    <Hero /> 
+                    <mesh ref={heroMesh}>
+                        <Hero position={[x, 0, 0]}/> 
+                    </mesh>
+
                     <mesh ref={secondMesh}>
                         <SecondSection position={[x, -viewport.height * 1, 0]} />
                     </mesh>
+
                     <directionalLight intensity={0.5} position={[ 0, (-viewport.height * 2 + 5), 3 ]}/>
                     
                     <mesh ref={thirdMesh}>
