@@ -1,67 +1,37 @@
-import { useRef } from 'react'
-import { useThree } from '@react-three/fiber'
-import { ScrollControls, Scroll, useHelper, OrbitControls } from '@react-three/drei'
+import { useRef, useEffect, Suspense } from 'react'
+import {  Canvas } from '@react-three/fiber'
+import { Html } from '@react-three/drei'
 import './style.css'
-import * as THREE from 'three'
 
-// Sections
-import Hero from './Hero.js'
-import { SecondSection } from './SecondSection'
-import { ThirdSection } from './ThirdSection'
-import Experience from './Experience.js'
 
-// export const breakpoints = {
-//     // when viewport.width === 7
-//     small: 7
-// }
+import { Content } from './Content'
+
+const state = {
+    top: 0,
+    pages: 4,
+  }
 
 const App = () => {
-  const { viewport } = useThree();
-  //   let x = viewport.width / 2
-  let x = 0
-  
-  const heroMesh = useRef();
-  useHelper(heroMesh, THREE.BoxHelper, "black");
-  const secondMesh = useRef();
-  useHelper(secondMesh, THREE.BoxHelper, "pink");
-  const thirdMesh = useRef();
-  useHelper(thirdMesh, THREE.BoxHelper, "pink");
-  const scrollMesh = useRef();
-  useHelper(scrollMesh, THREE.BoxHelper, "orange");
+  const scrollArea = useRef()
+  const onScroll = (e) => (state.top = e.target.scrollTop)
+  useEffect(() => void onScroll({ target: scrollArea.current }), [])
 
   return (
     <>
-        <OrbitControls enableZoom={false}/>
-        <ScrollControls
-            pages={4} // Each page takes 100% of the height of the canvas
-            distance={1.5} // A factor that increases scroll bar travel (default: 1)
-            damping={4} // Friction, higher is faster (default: 4)
-            // width={viewport.width}
+        <Canvas  
+            onPointerMove={null} 
+            camera={{ position: [0, 50, 250] }}
+            // camera={{ position: [0, 0, 0] }}
         >
-            <mesh ref={scrollMesh}>
-                <Scroll>
-                    {/* Lights */}
-                    <directionalLight intensity={0.2} position={[ 0,  5, 3 ]}/>
-                    <directionalLight intensity={0.1} position={[ 0,  0, 5 ]}/>
+            {/* Lights go here? */}
+            <Suspense fallback={<Html center> loading... </Html>}>
+               <Content state={state} />
+            </Suspense>
+        </Canvas>
 
-                    <mesh ref={heroMesh}>
-                        <Hero position={[x, 0, 0]}/> 
-                    </mesh>
-
-                    <mesh ref={secondMesh}>
-                        <SecondSection position={[x, -viewport.height * 1, 0]} />
-                    </mesh>
-
-                    <directionalLight intensity={0.5} position={[ 0, (-viewport.height * 2 + 5), 3 ]}/>
-                    
-                    <mesh ref={thirdMesh}>
-                        <ThirdSection position={[x, -viewport.height * 2, 0]} />
-                    </mesh>
-                    
-                    <Experience position={[0, -viewport.height * 3, 0]} />
-                </Scroll>
-            </mesh>
-        </ScrollControls>
+        <div className="scrollArea" ref={scrollArea} onScroll={onScroll}>
+            <div style={{ height: `${state.pages * 100}vh` }} />
+        </div>
     </>
   )
 }

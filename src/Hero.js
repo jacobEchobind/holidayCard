@@ -9,35 +9,6 @@ import { Flex, Box } from '@react-three/flex'
 import { data } from './store'
 import { useHelper, Sphere, Center } from '@react-three/drei'
 
-function Flakes({ data, range, scale }) {
-    const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
-    return (
-      <Instances range={ range } scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_low_1.geometry}>
-        <group position={[0, 0, 0]}>
-          {data.map((props, i) => (
-            <Flake key={i} {...props} />
-          ))}
-        </group>
-      </Instances>
-    )
-}
-
-function Flake({ random, color = new THREE.Color(), ...props }) {
-    const ref = useRef()
-    const [ hovered, setHover ] = useState(false)
-    useFrame((state) => {
-        const t = state.clock.getElapsedTime() + random * 10000
-        ref.current.rotation.set(Math.cos(t / 4) / 2, Math.sin(t / 4) / 2, Math.cos(t / 1.5) / 2)
-        ref.current.position.y = Math.sin(t / 1.5) / 2
-        ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = THREE.MathUtils.lerp(ref.current.scale.z, hovered ? 0.08 : 0.033, 0.05)
-        ref.current.color.lerp(color.set(hovered ? '#D4F4F5' : '#E7F5F6'), hovered ? .01 : 0.5)
-  })
-  return (
-    <group {...props}>
-      <Instance scale={ 0.01 } ref={ref} onPointerOver={(e) => (e.stopPropagation(), setHover(true))} onPointerOut={(e) => setHover(false)} />
-    </group>
-  )
-}
 
 export default function Hero({position}) {
     const { viewport } = useThree();
@@ -152,86 +123,82 @@ export default function Hero({position}) {
             floatIntensity={ FloatIntensity } // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
             floatingRange={[ FloatRangeX, FloatRangeY ]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
         >
-            {/* <Center>     */}
-                <mesh ref={hero}>
-                    <Flex 
-                        position={position}
-                        dir='column' 
-                        size={['100%', viewport.height, 0]} // xyz size to constrain content to
-                        // size={[viewport.width, viewport.height, 0]} 
-                        justifyContent='center' 
-                        alignItems='center'
-                        centerAnchor
-
-                    >
-                        {/*  H A P P Y   H O L I D A Y S  */}
-                        <mesh ref={holidayFlex}>
-                            <Box 
-                                dir='row' 
-                                flexWrap='wrap'
-                                mainAxis="x"
-                                crossAxis="y"
-                                // alignItems='center'
-                            >
-                                <mesh ref={happy}>
-                                    <Box>
-                                        {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
-                                            <meshLambertMaterial attach="material" color="red" />
-                                        </Sphere> */}
-                                        <primitive 
-                                            object={ header1.scene } 
-                                            // position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
-                                            // rotation-x={ header1RotationX }
-                                            // rotation-y={ header1RotationY }
-                                            // position={[0,0,0]}
-                                            scale={ header1Scale }
-                                        />
-                                    </Box>
-                                </mesh>
-                                <mesh ref={holiday}>
-                                    <Box marginLeft={.6}>
-                                        {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
-                                            <meshLambertMaterial attach="material" color="red" />
-                                        </Sphere> */}
-                                        <primitive 
-                                            object={ header2.scene } 
-                                            // position={[0,0,0]}
-                                            // position={ [ header2PositionX, header2PositionY, header2PositionZ ] }
-                                            // rotation-x={ header2RotationX }
-                                            // rotation-y={ header2RotationY }
-                                            scale={ header2Scale }
-                                        />
-                                    </Box>
-                                </mesh>
-                            </Box>
-                        </mesh>
-
-                        <mesh>
-                            <Box ref={from}>
-                                <Text
-                                    font='./fonts/noto-serif-v21-latin-regular.woff'
-                                    fontSize={ SubSize }
-                                    // position={ [ SubPositionX, SubPositionY, SubPositionZ ] }
-                                    maxWidth={ 10 }
-                                    // textAlign="center"
-                                    color={ SubColor }
-                                >
-                                    From all of us at
-                                </Text>
-                            </Box>
-                        </mesh>
-
-                        <Box mt={1.2}>
-                            <primitive 
-                                object={ EBlogo.scene } 
-                                // position={ [ EBPositionX, EBPositionY, EBPositionZ ] }
-                                scale={ EBScale }
-                                // rotation={ [ EBRotationX, EBRotationY, 0 ] }
-                            />
+            <mesh ref={hero}>
+                <Flex 
+                    // position={position}
+                    dir='column' 
+                    // size={['100%', viewport.height, 0]} // xyz size to constrain content to
+                    // size={[viewport.width, viewport.height, 0]} 
+                    justifyContent='center' 
+                    alignItems='center'
+                    centerAnchor
+                >
+                    <mesh ref={holidayFlex}>
+                        <Box 
+                            dir='row' 
+                            flexWrap='wrap'
+                            mainAxis="x"
+                            crossAxis="y"
+                            // alignItems='center'
+                        >
+                            <mesh ref={happy}>
+                                <Box>
+                                    <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
+                                        <meshLambertMaterial attach="material" color="red" />
+                                    </Sphere>
+                                    <primitive 
+                                        object={ header1.scene } 
+                                        // position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
+                                        // rotation-x={ header1RotationX }
+                                        // rotation-y={ header1RotationY }
+                                        // position={[0,0,0]}
+                                        scale={ header1Scale }
+                                    />
+                                </Box>
+                            </mesh>
+                            <mesh ref={holiday}>
+                                <Box marginLeft={.6}>
+                                    <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
+                                        <meshLambertMaterial attach="material" color="red" />
+                                    </Sphere>
+                                    <primitive 
+                                        object={ header2.scene } 
+                                        // position={[0,0,0]}
+                                        // position={ [ header2PositionX, header2PositionY, header2PositionZ ] }
+                                        // rotation-x={ header2RotationX }
+                                        // rotation-y={ header2RotationY }
+                                        scale={ header2Scale }
+                                    />
+                                </Box>
+                            </mesh>
                         </Box>
-                    </Flex>
-                </mesh>
-            {/* </Center> */}
+                    </mesh>
+
+                    <mesh>
+                        <Box ref={from}>
+                            <Text
+                                font='./fonts/noto-serif-v21-latin-regular.woff'
+                                fontSize={ SubSize }
+                                // position={ [ SubPositionX, SubPositionY, SubPositionZ ] }
+                                maxWidth={ 10 }
+                                // textAlign="center"
+                                color={ SubColor }
+                            >
+                                From all of us at
+                            </Text>
+                        </Box>
+                    </mesh>
+
+                    <Box mt={1.2}>
+                        <primitive 
+                            object={ EBlogo.scene } 
+                            // position={ [ EBPositionX, EBPositionY, EBPositionZ ] }
+                            scale={ EBScale }
+                            // rotation={ [ EBRotationX, EBRotationY, 0 ] }
+                        />
+                    </Box>
+                </Flex>
+            </mesh>
         </Float>
 
         <Flakes 
@@ -239,15 +206,35 @@ export default function Hero({position}) {
             range={ SnowRange } 
             scale={ SnowScale } 
         />
-
-        {/* <Cloud
-            opacity={ CloudOpacity } // Cloud opacity
-            speed={ CloudSpeed } // Rotation speed
-            width={ CloudWidth } // Width of the full cloud
-            depth={ CloudDepth }  // Z-dir depth
-            segments={ CloudSegments } // Number of particles
-            position={ [ CloudPositionX, CloudPositionY, CloudPositionZ ]} // XYZ position
-            color={ CloudColor }
-        /> */}
     </>
+}
+
+function Flakes({ data, range, scale }) {
+    const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
+    return (
+      <Instances range={ range } scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_low_1.geometry}>
+        <group position={[0, 0, 0]}>
+          {data.map((props, i) => (
+            <Flake key={i} {...props} />
+          ))}
+        </group>
+      </Instances>
+    )
+}
+
+function Flake({ random, color = new THREE.Color(), ...props }) {
+    const ref = useRef()
+    const [ hovered, setHover ] = useState(false)
+    useFrame((state) => {
+        const t = state.clock.getElapsedTime() + random * 10000
+        ref.current.rotation.set(Math.cos(t / 4) / 2, Math.sin(t / 4) / 2, Math.cos(t / 1.5) / 2)
+        ref.current.position.y = Math.sin(t / 1.5) / 2
+        ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = THREE.MathUtils.lerp(ref.current.scale.z, hovered ? 0.08 : 0.033, 0.05)
+        ref.current.color.lerp(color.set(hovered ? '#D4F4F5' : '#E7F5F6'), hovered ? .01 : 0.5)
+  })
+  return (
+    <group {...props}>
+      <Instance scale={ 0.01 } ref={ref} onPointerOver={(e) => (e.stopPropagation(), setHover(true))} onPointerOut={(e) => setHover(false)} />
+    </group>
+  )
 }
