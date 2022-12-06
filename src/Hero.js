@@ -4,7 +4,7 @@ import { EffectComposer, DepthOfField, Bloom, Noise, Vignette } from '@react-thr
 import * as THREE from 'three'
 import { useRef, useState } from "react"
 import { useFrame, useThree } from '@react-three/fiber'
-import { folder, useControls } from 'leva'
+import { Leva, folder, useControls } from 'leva'
 import { Flex, Box } from '@react-three/flex'
 import { data } from './store'
 import { Perf } from "r3f-perf"
@@ -108,19 +108,22 @@ export default function Hero() {
                 FloatRangeY: { value: .25, min: -3, max: 3 }
             }),
 
-            Clouds: folder ({ 
-                CloudVisible: { value: true }, // Boolean
-                CloudOpacity: { value: 0.8, min: 0, max: 2  }, // Cloud opacity
-                CloudSpeed: { value: 0.025, min: 0, max: 0.5  }, // Rotation speed
-                CloudWidth: { value: 4.5, min: 0, max: 20  }, // Width of the full cloud
-                CloudDepth: { value: 0, min: -2, max: 0  }, // Z-dir depth
-                CloudSegments: { value: 10 }, // Number of particles
-                CloudPositionX: { value: -3, min: -50, max: 50  }, // X position
-                CloudPositionY: { value: 6, min: -50, max: 50  }, // Y position
-                CloudPositionZ: { value: -4, min: -30, max: 0  }, // Z position
-                CloudColor: { value: '#F1F9FA' } // Cloud Color
-             })
-        }
+            // Clouds: folder ({ 
+            //     CloudVisible: { value: true }, // Boolean
+            //     CloudOpacity: { value: 0.8, min: 0, max: 2  }, // Cloud opacity
+            //     CloudSpeed: { value: 0.025, min: 0, max: 0.5  }, // Rotation speed
+            //     CloudWidth: { value: 4.5, min: 0, max: 20  }, // Width of the full cloud
+            //     CloudDepth: { value: 0, min: -2, max: 0  }, // Z-dir depth
+            //     CloudSegments: { value: 10 }, // Number of particles
+            //     CloudPositionX: { value: -3, min: -50, max: 50  }, // X position
+            //     CloudPositionY: { value: 6, min: -50, max: 50  }, // Y position
+            //     CloudPositionZ: { value: -4, min: -30, max: 0  }, // Z position
+            //     CloudColor: { value: '#F1F9FA' } // Cloud Color
+            //  })
+        },
+            {
+                collapsed: true,
+            }
     )
 
     const header1 = useGLTF('./meshes/happy.glb')
@@ -128,9 +131,9 @@ export default function Hero() {
     const EBLogo = useGLTF('./meshes/EBLogo.glb')
 
     return <>
-    
-        { PerfVisible ? <Perf position='top-left' /> : false }
         
+        { PerfVisible ? <Perf position='top-left' /> : null }
+
         <Environment 
             preset={"apartment"}
             // TODO: presets are not supposed to be used in prod
@@ -139,7 +142,6 @@ export default function Hero() {
             blur={3}
             // remove backgound or set to not visible so we can add the color in CSS
         />
-
 
         <Float
             speed={ FloatSpeed } // Animation speed, defaults to 1

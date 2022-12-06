@@ -7,6 +7,88 @@ import { folder, useControls } from 'leva'
 import * as THREE from 'three'
 import { Portal } from './Portal.js'
 
+export default function Experience({ position}) {
+    const { viewport } = useThree();
+
+    const { 
+            FocusDistance, FocalLength, BokehScale, TargetX, TargetY, TargetZ, DOFVisible, // DOF
+            Offset, Darkness, Eskil, OptionsV, VignetteVisible, // vignette
+            BLuminanceThreshold, BLuminanceSmoothing, BHeight, BOpacity, BloomVisible, // bloom
+            SnowDepth, SnowVisible, SnowCount, SnowSpeed,  // snow
+        } = useControls('Effects', {
+         
+            DepthOfField: folder ( {
+                FocusDistance: { value: 8, min: 0, max: 50, step: 0.01 }, // where to focus
+                FocalLength: { value: 1.5, min: 0, max: 5, step: 0.01 }, // focal length
+                BokehScale: { value: 3, min: 0, max: 20, step: 0.01}, // size of bokeh
+                TargetX:{ value: 0, min: 0, max: 50, step: 0.1 },
+                TargetY:{ value: 0, min: 0, max: 50, step: 0.1 },
+                TargetZ:{ value: 30, min: 0, max: 50, step: 0.1 },
+                DOFVisible: true,
+        }), 
+            
+            Vignette: folder ({
+                Offset: { value: 0.2, min: 0, max: 5, step: 0.01 },
+                Darkness: { value: 0.9, min: 0, max: 5, step: 0.01 },
+                Eskil: { value: false },
+                VignetteVisible: true,
+                // OptionsV: { 
+                //     null: 'null', 
+                //     ADD: 'ADD',
+                //     ALPHA: 'ALPHA',
+                //     AVERAGE: 'AVERAGE',
+                //     COLOR: 'COLOR',
+                //     COLOR_BURN: 'COLOR_BURN',
+                //     COLOR_DODGE: 'COLOR_DODGE',
+                //     DARKEN: 'COLOR_DODGE',
+                //     DIFFERENCE: 'DIFFERENCE',
+                //     DIVIDE: 'DIVIDE',
+                //     DST: 'DST',
+                //     EXCLUSION: 'EXCLUSION',
+                //     HARD_LIGHT: 'HARD_LIGHT',
+                //     INVERT: 'INVERT',
+                //     INVERT_RGB: 'INVERT_RGB',
+                //     LIGHTEN: 'LIGHTEN',
+                //     LINEAR_BURN: 'LINEAR_BURN',
+                //     LINEAR_LIGHT: 'LINDEAR_LIGHT',
+                //     LUMINOSITY: 'LUMINOSITY',
+                //     MULTIPLY: 'MULTIPLY',
+                //     NEGATION: 'NEGATION',
+                //     NORMAL: 'NORMAL',
+                //     OVERLAY: 'OVERLAY',
+                //     PIN_LIGHT: 'PIN_LIGHT',
+                //     REFLECT: 'REFLECT',
+                //     SATURATION: 'SATURATION',
+                //     SCREEN: 'SCREEN',
+                //     SET: 'SET',
+                //     SKIP: 'SKIP',
+                //     SOFT_LIGHT: 'SOFT_LIGHT',
+                //     SRC: 'SRC',
+                //     SUBTRACT: 'SUBTRACT',
+                //     VIVID_LIGHT: 'VIVID_LIGHT'
+                // }        
+                
+        }),
+            Bloom: folder ({
+                BLuminanceThreshold: { value: .65, min: 0, max: 1, step: 0.01 },
+                BLuminanceSmoothing: { value: .75, min: 0, max: 1, step: 0.01 },
+                BHeight: { value: 100, min: 0, max: 500, step: 0.1 },
+                BOpacity: { value: 1.5, min: 0, max: 5, step: 0.01 },
+                BloomVisible: true,
+        }),
+        
+            Snow: folder ({
+                SnowDepth: { value: 35, min: 0, max: 100, step: 0.01 }, // distance from view
+                SnowSpeed: { value: .05, min: 0, max: 5, step: 0.01 }, // rate of snowfall
+                SnowCount: { value: 150, min: 0.0, max: 200, step: 0.1 }, // amount of snow
+                SnowVisible: true,
+        })    
+
+    },
+        {
+        collapsed: true,
+        }
+)
 
 function Snow({z}) {
     const ref = useRef()
@@ -25,7 +107,7 @@ function Snow({z}) {
   
     useFrame((state) => {
       ref.current.rotation.set((data.rX += 0.001), (data.rY += 0.004), (data.rZ += 0.0005))
-      ref.current.position.set(data.x * width, (data.y -= Math.sin(.05) * 1.45), z)
+      ref.current.position.set(data.x * width, (data.y -= Math.sin(SnowSpeed) * 1.45), z)
       if (data.y < - height / 1.25) {
          data.y = height / 1.1
       }
@@ -35,61 +117,53 @@ function Snow({z}) {
     // material-emissive={"orange"} //
   }
 
- 
-
-export default function Experience({ position}) {
-    const { viewport } = useThree();
-    const count = 150;
-    const depth = 40;
-
-    const { FocusDistance, FocalLength, BokehScale, TargetX, TargetY, TargetZ } = useControls('Effects',{
-            DepthOfField: folder ( {
-            FocusDistance: { value: 8, min: 0, max: 50, step: 0.01 }, // where to focus
-            FocalLength: { value: 1.5, min: 0, max: 5, step: 0.01 }, // focal length
-            BokehScale: { value: 3, min: 0, max: 20, step: 0.01}, // size of bokeh
-            TargetX:{ value: 0, min: 0, max: 10, step: 0.01 },
-            TargetY:{ value: 0, min: 0, max: 10, step: 0.01 },
-            TargetZ:{ value: 30, min: 0, max: 80, step: 0.01 },
-        })
-        }
-    )
-
     return (
         <group>
+            
             <Environment preset='city'/>
             <ambientLight intensity={.45} />
             <spotLight position={[10, 10, 10]} intensity={2} />
             <Suspense fallback={ null }>
+
                 <EffectComposer>
                     {/* <TiltShift /> */}
-                    {Array.from({length: count}, (_, i) => (
-                        <Snow key={i} z={-(i / count) * depth -35 } 
-                    />
-                    ))}
-                    <Bloom
-                        luminanceThreshold={.65} // 0 - 1 range https://github.com/pmndrs/react-postprocessing#selective-bloom
-                        luminanceSmoothing={.75}
-                        height={180}
-                        opacity={1.5}
-                    />
-                    {/* <Noise opacity={0.001} />   */}
-                    <Vignette
-                        offset={0.2}
-                        darkness={0.9}
-                        // Eskil's vignette technique works from the outside inwards rather
-                        // than the inside outwards, so if this is 'true' set the offset
-                        // to a value greater than 1.
-                        // See frag for details - https://github.com/vanruesc/postprocessing/blob/main/src/effects/glsl/vignette/shader.frag
-                        eskil={false}
-                        // blendFunction={BlendFunction.SOFT_LIGHT}
-                    />
-                    <DepthOfField 
-                        target={[ TargetX, TargetY, TargetZ]} 
-                        focalLength={ FocalLength } // focal length
-                        bokehScale={ BokehScale } // bokeh size
-                        height={512} 
-                        focusDistance={ FocusDistance } // where to focus
-                    />
+
+                    { SnowVisible ?
+                        <group>
+                        {Array.from({length: SnowCount}, (_, i) => (
+                            <Snow key={i} z={-(i / SnowCount) * SnowDepth - SnowDepth } 
+                        />
+                        ))}</group> : null }
+
+                    { BloomVisible ? 
+                        <Bloom
+                            luminanceThreshold={ BLuminanceThreshold } // 0 - 1 range https://github.com/pmndrs/react-postprocessing#selective-bloom
+                            luminanceSmoothing={ BLuminanceSmoothing }
+                            height={ BHeight }
+                            opacity={ BOpacity }
+                        /> : null }
+
+                    { VignetteVisible ? 
+                        <Vignette
+                            offset={ Offset }
+                            darkness={ Darkness }
+                            // Eskil's vignette technique works from the outside inwards rather
+                            // than the inside outwards, so if this is 'true' set the offset
+                            // to a value greater than 1.
+                            // See frag for details - https://github.com/vanruesc/postprocessing/blob/main/src/effects/glsl/vignette/shader.frag
+                            eskil={ Eskil }
+                            // blendFunction={BlendFunction.OptionsV}
+                        /> : null }
+
+                    { DOFVisible ? 
+                        <DepthOfField 
+                            target={[ TargetX, TargetY, TargetZ]} 
+                            focalLength={ FocalLength } // focal length
+                            bokehScale={ BokehScale } // bokeh size
+                            height={512} 
+                            focusDistance={ FocusDistance } // where to focus
+                        /> : null }
+                    
                 </EffectComposer>
                 {/* these controls are a helper from react three drei and is used instead of orbit controls */}
                     <group position={ position }>    
