@@ -25,9 +25,9 @@ function Snow({z}) {
   
     useFrame((state) => {
       ref.current.rotation.set((data.rX += 0.001), (data.rY += 0.004), (data.rZ += 0.0005))
-      ref.current.position.set(data.x * width, (data.y -= Math.sin(0.08) * 1.33), z)
-      if (data.y < - height / 1.5) {
-         data.y = height / .25
+      ref.current.position.set(data.x * width, (data.y -= Math.sin(0.1) * 1.45), z)
+      if (data.y < - height / 1.25) {
+         data.y = height / 1.22
       }
     })
   
