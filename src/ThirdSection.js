@@ -1,6 +1,6 @@
 import { useThree } from '@react-three/fiber'
 import { Flex, Box } from '@react-three/flex'
-import { Text, Sphere } from '@react-three/drei'
+import { Text, Sphere, Html } from '@react-three/drei'
 
 export const ThirdSection = ({ position }) => {
   const { viewport } = useThree();
@@ -30,7 +30,7 @@ export const ThirdSection = ({ position }) => {
             textAlign='left'
             maxWidth={(viewport.width > breakpoint) ? 3 : 1}
           >
-            THIRDD Section
+            THIRD Section
           </Text>
           <Text 
             maxWidth={viewport.width > breakpoint ? 2.8 : 1.75}
@@ -45,7 +45,7 @@ export const ThirdSection = ({ position }) => {
         <Box
           width={1}
           centerAnchor={true}
-          marginTop={viewport.width > breakpoint ? .4 : .5}
+          marginTop={viewport.width > breakpoint ? .4 : 1.5}
           marginLeft={viewport.width > breakpoint ? .4 : 0}
         >
           <Sphere args={[.3, 16, 16]}>

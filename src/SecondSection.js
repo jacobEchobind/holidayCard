@@ -6,9 +6,8 @@ import { Text, useGLTF, Sphere } from '@react-three/drei'
 
 export const SecondSection = ({ position }) => {
   const { viewport } = useThree();
-  const breakpoint = 4.3
-  const Snowflake = useGLTF('./meshes/snowflake.glb')
-  
+  const breakpoint = 4.3;
+
   return (
     <Flex  
       dir='column'
@@ -29,26 +28,16 @@ export const SecondSection = ({ position }) => {
         <Box 
           width={1}
           centerAnchor={true}
-          // marginTop={viewport.width > breakpoint ? .4 : .5}
+          marginTop={viewport.width > breakpoint ? .4 : .5}
         >
-          <Sphere 
-            args={[.3, 16, 16]} 
-            // position={[0, viewport.width > breakpoint ? .4 : .5, 0]}
-          >
+          <Sphere args={[.3, 16, 16]}>
               <meshLambertMaterial attach="material" color="red" />
           </Sphere>
-          {/* <primitive 
-            object={ Snowflake.scene } 
-            scale={ .001 }
-          /> */}
         </Box>
         
         <Box centerAnchor={true}
           marginLeft={viewport.width > breakpoint ? .4 : 0}
         >
-          {/* <Sphere args={[.3, 16, 16]} >
-              <meshLambertMaterial attach="material" color="green" />
-          </Sphere> */}
           <Text 
             color='black' 
             scale={2}
