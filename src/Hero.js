@@ -89,7 +89,7 @@ export default function Hero() {
 
             Subheader: folder ({
                 SubSize: { value: .35, min: 0.01, max: 1 },
-                SubColor: { value: '#26524E' },
+                SubColor: { value: 'white' },
                 SubPositionX: { value: 0, min: - 3, max: 3 },
                 SubPositionY: { value: 0, min: -3, max: 3 },
                 SubPositionZ: { value: 0, min: -3, max: 3 },
@@ -201,7 +201,7 @@ export default function Hero() {
                 </Box>
                 <Box mt={.3} centerAnchor={true}>
                     <primitive 
-                        object={ EBlogo.scene } 
+                        object={ EBLogo.scene } 
                         scale={viewport.width < 2.75 ? viewport.width / 5000 : EBScale }
                         position={ [ EBPositionX, EBPositionY, EBPositionZ ] }
                         rotation={ [ EBRotationX, EBRotationY, 0 ] }

@@ -6,7 +6,7 @@ import { Text, useGLTF, Sphere } from '@react-three/drei'
 
 export const SecondSection = ({ position }) => {
   const { viewport } = useThree();
-  const breakpoint = 4.3;
+  const breakpoint = 4.5;
 
   return (
     <Flex  
@@ -31,7 +31,7 @@ export const SecondSection = ({ position }) => {
           marginTop={viewport.width > breakpoint ? .4 : .5}
         >
           <Sphere args={[.3, 16, 16]}>
-              <meshLambertMaterial attach="material" color="red" />
+              <meshLambertMaterial attach="material" color="white" />
           </Sphere>
         </Box>
         
@@ -39,8 +39,8 @@ export const SecondSection = ({ position }) => {
           marginLeft={viewport.width > breakpoint ? .4 : 0}
         >
           <Text 
-            color='black' 
-            scale={2}
+            color='white' 
+            scale={4}
             maxWidth={(viewport.width > breakpoint) ? 3 : 1}
             textAlign='left'
           >
@@ -48,10 +48,11 @@ export const SecondSection = ({ position }) => {
           </Text>
           <Text 
             anchorY="top"
-            color='black'
+            color='white'
             position={[0, -0.3, 0]}
             textAlign='left'
-            maxWidth={viewport.width > breakpoint ? 2.8 : 1.75}
+            maxWidth={viewport.width > breakpoint ? 2 : 1.75}
+            scale={2}
           >
             Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
           </Text>

@@ -4,7 +4,7 @@ import { Text, Sphere, Html } from '@react-three/drei'
 
 export const ThirdSection = ({ position }) => {
   const { viewport } = useThree();
-  const breakpoint = 4.3
+  const breakpoint = 4.5
 
   return (
     <Flex  
@@ -25,19 +25,20 @@ export const ThirdSection = ({ position }) => {
       >
         <Box centerAnchor={true}>
           <Text 
-            color='black' 
-            scale={2}
+            color='white' 
+            scale={4}
             textAlign='left'
             maxWidth={(viewport.width > breakpoint) ? 3 : 1}
           >
             THIRD Section
           </Text>
           <Text 
-            maxWidth={viewport.width > breakpoint ? 2.8 : 1.75}
+            maxWidth={viewport.width > breakpoint ? 2 : 1.75}
             textAlign='left'
             anchorY="top"
             position={[0, -0.3, 0]}
-            color='black'
+            color='white'
+            scale={2}
           >
             Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
           </Text>
@@ -45,7 +46,7 @@ export const ThirdSection = ({ position }) => {
         <Box
           width={1}
           centerAnchor={true}
-          marginTop={viewport.width > breakpoint ? .4 : 1.5}
+          marginTop={viewport.width > breakpoint ? 1.5 : 1.5}
           marginLeft={viewport.width > breakpoint ? .4 : 0}
         >
           <Sphere args={[.3, 16, 16]}>
