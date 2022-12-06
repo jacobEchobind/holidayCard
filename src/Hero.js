@@ -1,5 +1,5 @@
 // import { extend } from "@react-three/fiber"
-import { Instance, Instances, Cloud, Text, Sparkles, Float, Environment, useGLTF } from "@react-three/drei"
+import { Instance, Instances, Text, Float, Environment, useGLTF } from "@react-three/drei"
 import { EffectComposer, DepthOfField, Bloom, Noise, Vignette } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import { useRef, useState } from "react"
@@ -7,7 +7,6 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { folder, useControls } from 'leva'
 import { Flex, Box } from '@react-three/flex'
 import { data } from './store'
-import { useHelper, Sphere, Center } from '@react-three/drei'
 
 function Flakes({ data, range, scale }) {
     const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
@@ -39,9 +38,11 @@ function Flake({ random, color = new THREE.Color(), ...props }) {
   )
 }
 
-export default function Hero({position}) {
+export default function Hero() {
     const { viewport } = useThree();
-
+    const header1 = useGLTF('./meshes/happy.glb')
+    const header2 = useGLTF('./meshes/holidays.glb')
+    const EBlogo = useGLTF('./meshes/EBLogo_snow.glb')
 
     const { SnowRange, SnowScale, 
         // headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
@@ -78,8 +79,8 @@ export default function Hero({position}) {
                 EBRotationX: { value: 0, min: - Math.PI , max: Math.PI },
                 EBRotationY: { value: 0, min: - Math.PI, max: Math.PI },
                 EBPositionX: { value: 0, min: - 3, max: 3 },
-                EBPositionY: { value: -1.3, min: -3, max: 3 },
-                EBPositionZ: { value: 1, min: -3, max: 3 },
+                EBPositionY: { value: 0, min: -3, max: 3 },
+                EBPositionZ: { value: 0, min: -3, max: 3 },
             }),
 
             Subheader: folder ({
@@ -118,24 +119,7 @@ export default function Hero({position}) {
         }
     )
 
-    // const header = useGLTF('./meshes/happy_holidays.glb')
-    const header1 = useGLTF('./meshes/happy.glb')
-    const header2 = useGLTF('./meshes/holidays.glb')
-    const EBlogo = useGLTF('./meshes/EBLogo_snow.glb')
-
-    const hero = useRef();
-    useHelper(hero, THREE.BoxHelper, "pink");
-    const holidayFlex = useRef();
-    useHelper(holidayFlex, THREE.BoxHelper, "orange");
-    const happy = useRef();
-    useHelper(happy, THREE.BoxHelper, "red");
-    const holiday = useRef();
-    useHelper(holiday, THREE.BoxHelper, "purple");
-    const from = useRef();
-    useHelper(from, THREE.BoxHelper, "gray");
-
     return <>
-        
         <Environment 
             preset={"apartment"}
             // TODO: presets are not supposed to be used in prod
@@ -152,91 +136,67 @@ export default function Hero({position}) {
             floatIntensity={ FloatIntensity } // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
             floatingRange={[ FloatRangeX, FloatRangeY ]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
         >
-            {/* <Center>     */}
-                <mesh ref={hero}>
-                    <Flex 
-                        // position={position}
-                        dir='column' 
-                        size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
-                        justifyContent='flex-start' 
-                        // alignItems='center'
-                        // centerAnchor={false}
-                        // width='100%'
+            <Flex 
+                dir='column' 
+                size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
+                alignItems='center'
+                centerAnchor={true}
+                justifyContent='center'
+            >
+                {/*  H A P P Y   H O L I D A Y S  */}
+                <Box 
+                    dir='row' 
+                    justifyContent='center'
+                    flexWrap='wrap'
+                    centerAnchor={false}
+                    alignItems='center'
+                    width="100%"
+                >
+                    <Box centerAnchor={true} marginTop={.1}>
+                        <primitive 
+                            object={ header1.scene } 
+                            position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
+                            rotation-x={ header1RotationX }
+                            rotation-y={ header1RotationY }
+                            scale={ viewport.width < 2.75 ? viewport.width / 80 : header1Scale }
+                        />
+                    </Box>
+                    <Box 
+                        marginLeft={.4}
+                        marginTop={.1}
+                        centerAnchor={true}
                     >
-                        {/*  H A P P Y   H O L I D A Y S  */}
-                        <mesh ref={holidayFlex}>
-                            <Box 
-                                dir='row' 
-                                flexWrap='wrap'
-                                mainAxis="x"
-                                crossAxis="y"
-                                // centerAnchor={false}
-                                alignItems='center'
-                                centerAnchor={true}
-                                // width="100%"
-                            >
-                                <mesh ref={happy}>
-                                    <Box
-                                        centerAnchor={false}
-                                    >
-                                        {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
-                                            <meshLambertMaterial attach="material" color="red" />
-                                        </Sphere> */}
-                                        <primitive 
-                                            object={ header1.scene } 
-                                            // position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
-                                            // rotation-x={ header1RotationX }
-                                            // rotation-y={ header1RotationY }
-                                            scale={ header1Scale }
-                                        />
-                                    </Box>
-                                </mesh>
-                                <mesh ref={holiday}>
-                                    <Box 
-                                        marginLeft={.6}
-                                        centerAnchor={false}
-                                    >
-                                        {/* <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
-                                            <meshLambertMaterial attach="material" color="red" />
-                                        </Sphere> */}
-                                        <primitive 
-                                            object={ header2.scene } 
-                                            // position={ [ header2PositionX, header2PositionY, header2PositionZ ] }
-                                            // rotation-x={ header2RotationX }
-                                            // rotation-y={ header2RotationY }
-                                            scale={ header2Scale }
-                                        />
-                                    </Box>
-                                </mesh>
-                            </Box>
-                        </mesh>
+                        <primitive 
+                            object={ header2.scene } 
+                            position={ [ header2PositionX, header2PositionY, header2PositionZ ] }
+                            rotation-x={ header2RotationX }
+                            rotation-y={ header2RotationY }
+                            scale={ viewport.width < 2.75 ? viewport.width / 80 : header1Scale }
+                        />
+                    </Box>
+                </Box>
 
-                        {/* <mesh>
-                            <Box ref={from}>
-                                <Text
-                                    font='./fonts/noto-serif-v21-latin-regular.woff'
-                                    fontSize={ SubSize }
-                                    // position={ [ SubPositionX, SubPositionY, SubPositionZ ] }
-                                    maxWidth={ 10 }
-                                    // textAlign="center"
-                                    color={ SubColor }
-                                >
-                                    From all of us at
-                                </Text>
-                            </Box>
-                        </mesh> */}
-
-                        {/* <Box mt={1.2}>
-                            <primitive 
-                                object={ EBlogo.scene } 
-                                // position={ [ EBPositionX, EBPositionY, EBPositionZ ] }
-                                scale={ EBScale }
-                                // rotation={ [ EBRotationX, EBRotationY, 0 ] }
-                            />
-                        </Box> */}
-                    </Flex>
-                </mesh>
-            {/* </Center> */}
+                <Box marginTop={.3} centerAnchor={true}>
+                    <Text
+                        font='./fonts/noto-serif-v21-latin-regular.woff'
+                        fontSize={ viewport.width < 3 ? viewport.width / 10 : SubSize }
+                        position={ [ SubPositionX, SubPositionY, SubPositionZ ] }
+                        maxWidth={ viewport.width }
+                        textAlign="center"
+                        color={ SubColor }
+                    >
+                        From all of us at
+                    </Text>
+                </Box>
+                <Box mt={.3} centerAnchor={true}>
+                    <primitive 
+                        object={ EBlogo.scene } 
+                        scale={viewport.width < 2.75 ? viewport.width / 5000 : EBScale }
+                        position={ [ EBPositionX, EBPositionY, EBPositionZ ] }
+                        rotation={ [ EBRotationX, EBRotationY, 0 ] }
+                    />
+                </Box>
+            </Flex>
         </Float>
 
         <Flakes 
@@ -244,15 +204,5 @@ export default function Hero({position}) {
             range={ SnowRange } 
             scale={ SnowScale } 
         />
-
-        {/* <Cloud
-            opacity={ CloudOpacity } // Cloud opacity
-            speed={ CloudSpeed } // Rotation speed
-            width={ CloudWidth } // Width of the full cloud
-            depth={ CloudDepth }  // Z-dir depth
-            segments={ CloudSegments } // Number of particles
-            position={ [ CloudPositionX, CloudPositionY, CloudPositionZ ]} // XYZ position
-            color={ CloudColor }
-        /> */}
     </>
 }

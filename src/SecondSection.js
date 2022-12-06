@@ -1,87 +1,74 @@
 import { useRef } from 'react'
 import { useThree } from '@react-three/fiber'
 import { Flex, Box } from '@react-three/flex'
-import { Text, useGLTF, Sphere, useHelper } from '@react-three/drei'
-import { breakpoints } from './App';
-import * as THREE from "three";
+import { Text, useGLTF, Sphere } from '@react-three/drei'
 
 
 export const SecondSection = ({ position }) => {
   const { viewport } = useThree();
-  // const mobile = viewport.width < breakpoints.small
-  const EBlogo = useGLTF('./meshes/EBLogo_snow.glb')
-  const contentMesh = useRef();
-  useHelper(contentMesh, THREE.BoxHelper, "#272730");
+  const breakpoint = 4.3
+  const Snowflake = useGLTF('./meshes/snowflake.glb')
   
-  const textMesh = useRef();
-  useHelper(textMesh, THREE.BoxHelper, "coral");
-
-  const headerMesh = useRef();
-  useHelper(headerMesh, THREE.BoxHelper, "red");
-
-            
-
   return (
     <Flex  
+      dir='column'
       position={position} 
       size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
-      dir='row'
-      flexWrap='wrap'
-      // padding={.5}
-      margin={1}
-      // centerAnchor
       alignItems='center'
-      justifyContent='space-between'
+      centerAnchor={true}
     >
-
-      {console.log('viewport.width', viewport.width)}
-      <mesh ref={contentMesh}>
-        <Box
-          // height={.5}
-          // width={.5}
-          anchorY='top'
-          marginTop={1}
+      <Box
+        dir='row'
+        justifyContent='center'
+        alignItems='center'
+        centerAnchor={false}
+        flexWrap='wrap'
+        width='100%'
+        height='100%'
+      >
+        <Box 
+          width={1}
+          centerAnchor={true}
+          // marginTop={viewport.width > breakpoint ? .4 : .5}
         >
-          <Sphere args={[.3, 16, 16]} position={viewport.width < 2.7 &&  [0, -0.7, 0]}>
+          <Sphere 
+            args={[.3, 16, 16]} 
+            // position={[0, viewport.width > breakpoint ? .4 : .5, 0]}
+          >
               <meshLambertMaterial attach="material" color="red" />
           </Sphere>
           {/* <primitive 
-            object={ EBlogo.scene } 
-            position={ [ 0, 1, 0 ] }
-            scale={ .0003 }
-            rotation={ [ 0, 0, 0 ] }
+            object={ Snowflake.scene } 
+            scale={ .001 }
           /> */}
         </Box>
-      </mesh>
-
-      <mesh ref={textMesh}>
-        <Box
-          height={1}
-          // height={'auto'}
-          // width={.5}
-          // width={viewport.width}
-          // marginBottom={.75}
+        
+        <Box centerAnchor={true}
+          marginLeft={viewport.width > breakpoint ? .4 : 0}
         >
-          <mesh ref={headerMesh}>
-              <Text 
-                color='black' 
-                scale={2}
-                maxWidth={(viewport.width / 2)}
-              >
-                SECOND Section
-              </Text>
-          </mesh>   
-            <Text 
-              anchorY="top"
-              color='black'
-              position={[0, -0.3, 0]}
-              maxWidth={viewport.width > 3 ? 3 : (viewport.width / 2)}
-              // maxWidth={3}
-            >
-              Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
-            </Text>
+          {/* <Sphere args={[.3, 16, 16]} >
+              <meshLambertMaterial attach="material" color="green" />
+          </Sphere> */}
+          <Text 
+            color='black' 
+            scale={2}
+            maxWidth={(viewport.width > breakpoint) ? 3 : 1}
+            textAlign='left'
+          >
+            SECOND Section
+          </Text>
+          <Text 
+            anchorY="top"
+            color='black'
+            position={[0, -0.3, 0]}
+            textAlign='left'
+            maxWidth={viewport.width > breakpoint ? 2.8 : 1.75}
+          >
+            Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
+          </Text>
         </Box>
-      </mesh>
+
+      </Box>
     </Flex>
   )
 }
