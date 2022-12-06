@@ -7,42 +7,46 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { folder, useControls } from 'leva'
 import { Flex, Box } from '@react-three/flex'
 import { data } from './store'
+import { Perf } from "r3f-perf"
+import { FocalLength, FocusDistance, BokehScale } from './Experience.js'
 
-function Flakes({ data, range, scale }) {
-    const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
-    return (
-      <Instances range={ range } scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_low_1.geometry}>
-        <group position={[0, 0, 0]}>
-          {data.map((props, i) => (
-            <Flake key={i} {...props} />
-          ))}
-        </group>
-      </Instances>
-    )
-}
+// function Flakes({ data, range, scale }) {
+//     const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
+//     return (
+//       <Instances range={ range } scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_low_1.geometry}>
+//         <group position={[0, 0, 0]}>
+//           {data.map((props, i) => (
+//             <Flake key={i} {...props} />
+//           ))}
+//         </group>
+//       </Instances>
+//     )
+// }
 
-function Flake({ random, color = new THREE.Color(), ...props }) {
-    const ref = useRef()
-    const [ hovered, setHover ] = useState(false)
-    useFrame((state) => {
-        const t = state.clock.getElapsedTime() + random * 10000
-        ref.current.rotation.set(Math.cos(t / 4) / 2, Math.sin(t / 4) / 2, Math.cos(t / 1.5) / 2)
-        ref.current.position.y = Math.sin(t / 1.5) / 2
-        ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = THREE.MathUtils.lerp(ref.current.scale.z, hovered ? 0.08 : 0.033, 0.05)
-        ref.current.color.lerp(color.set(hovered ? '#D4F4F5' : '#E7F5F6'), hovered ? .01 : 0.5)
-  })
-  return (
-    <group {...props}>
-      <Instance scale={ 0.01 } ref={ref} onPointerOver={(e) => (e.stopPropagation(), setHover(true))} onPointerOut={(e) => setHover(false)} />
-    </group>
-  )
-}
+
+// function Flake({ random, color = new THREE.Color(), ...props }) {
+//     const ref = useRef()
+//     const [ hovered, setHover ] = useState(false)
+//     useFrame((state) => {
+//         const t = state.clock.getElapsedTime() + random * 10000
+//         ref.current.rotation.set(Math.cos(t / 4) / 2, Math.sin(t / 4) / 2, Math.cos(t / 1.5) / 2)
+//         ref.current.position.y = Math.sin(t / 1.5) / 2
+//         ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = THREE.MathUtils.lerp(ref.current.scale.z, hovered ? 0.08 : 0.033, 0.05)
+//         ref.current.color.lerp(color.set(hovered ? '#D4F4F5' : '#E7F5F6'), hovered ? .01 : 0.5)
+//   })
+//   return (
+//     <group {...props}>
+//       <Instance scale={ 0.01 } ref={ref} onPointerOver={(e) => (e.stopPropagation(), setHover(true))} onPointerOut={(e) => setHover(false)} />
+//     </group>
+//   )
+// }
 
 export default function Hero() {
     const { viewport } = useThree();
-    const header1 = useGLTF('./meshes/happy.glb')
-    const header2 = useGLTF('./meshes/holidays.glb')
-    const EBlogo = useGLTF('./meshes/EBLogo_snow.glb')
+
+    const { PerfVisible } =  useControls ({
+        PerfVisible: true,
+    })
 
     const { SnowRange, SnowScale, 
         // headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
@@ -91,10 +95,10 @@ export default function Hero() {
                 SubPositionZ: { value: 0, min: -3, max: 3 },
             }),
 
-            Snowflakes: folder ({ 
-                SnowRange: { value: 100, min: 0, max: 300}, 
-                SnowScale: { value: 1, min: 0, max: 300} 
-            }),
+            // Snowflakes: folder ({ 
+            //     SnowRange: { value: 100, min: 0, max: 300}, 
+            //     SnowScale: { value: 1, min: 0, max: 300} 
+            // }),
 
             FloatAnimation: folder ({
                 FloatSpeed: { value: 1, min: 0, max: 20 },
@@ -119,7 +123,14 @@ export default function Hero() {
         }
     )
 
+    const header1 = useGLTF('./meshes/happy.glb')
+    const header2 = useGLTF('./meshes/holidays.glb')
+    const EBLogo = useGLTF('./meshes/EBLogo.glb')
+
     return <>
+    
+        { PerfVisible ? <Perf position='top-left' /> : false }
+        
         <Environment 
             preset={"apartment"}
             // TODO: presets are not supposed to be used in prod
@@ -199,10 +210,10 @@ export default function Hero() {
             </Flex>
         </Float>
 
-        <Flakes 
+        {/* <Flakes 
             data={ data } 
             range={ SnowRange } 
             scale={ SnowScale } 
-        />
+        /> */}
     </>
 }
