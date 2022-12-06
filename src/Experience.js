@@ -3,8 +3,8 @@ import { useState, useRef, Suspense } from 'react'
 import { Instances, Instance, useGLTF, PresentationControls, Float, Environment } from '@react-three/drei'
 import { TiltShift, Bloom, Noise, Vignette, EffectComposer, DepthOfField } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
+import { folder, useControls } from 'leva'
 import * as THREE from 'three'
-import { Perf } from 'r3f-perf'
 import { Portal } from './Portal.js'
 
 
@@ -25,9 +25,9 @@ function Snow({z}) {
   
     useFrame((state) => {
       ref.current.rotation.set((data.rX += 0.001), (data.rY += 0.004), (data.rZ += 0.0005))
-      ref.current.position.set(data.x * width, (data.y -= Math.sin(0.1) * 1.45), z)
+      ref.current.position.set(data.x * width, (data.y -= Math.sin(.05) * 1.45), z)
       if (data.y < - height / 1.25) {
-         data.y = height / 1.22
+         data.y = height / 1.1
       }
     })
   
@@ -35,20 +35,37 @@ function Snow({z}) {
     // material-emissive={"orange"} //
   }
 
-export default function Experience({ position, FocalLength, FocusDistance, BokehScale }) {
+ 
+
+export default function Experience({ position}) {
     const { viewport } = useThree();
     const count = 150;
     const depth = 40;
 
+    const { FocusDistance, FocalLength, BokehScale, TargetX, TargetY, TargetZ } = useControls('Effects',{
+            DepthOfField: folder ( {
+            FocusDistance: { value: 8, min: 0, max: 50, step: 0.01 }, // where to focus
+            FocalLength: { value: 1.5, min: 0, max: 5, step: 0.01 }, // focal length
+            BokehScale: { value: 3, min: 0, max: 20, step: 0.01}, // size of bokeh
+            TargetX:{ value: 0, min: 0, max: 10, step: 0.01 },
+            TargetY:{ value: 0, min: 0, max: 10, step: 0.01 },
+            TargetZ:{ value: 30, min: 0, max: 80, step: 0.01 },
+        })
+        }
+    )
+
     return (
-        <group position={ position }>
+        <group>
             <Environment preset='city'/>
-            <ambientLight intensity={.8} />
-            <spotLight position={[10, 10, 10]} intensity={3} />
+            <ambientLight intensity={.45} />
+            <spotLight position={[10, 10, 10]} intensity={2} />
             <Suspense fallback={ null }>
-                
                 <EffectComposer>
                     {/* <TiltShift /> */}
+                    {Array.from({length: count}, (_, i) => (
+                        <Snow key={i} z={-(i / count) * depth -35 } 
+                    />
+                    ))}
                     <Bloom
                         luminanceThreshold={.65} // 0 - 1 range https://github.com/pmndrs/react-postprocessing#selective-bloom
                         luminanceSmoothing={.75}
@@ -67,39 +84,32 @@ export default function Experience({ position, FocalLength, FocusDistance, Bokeh
                         // blendFunction={BlendFunction.SOFT_LIGHT}
                     />
                     <DepthOfField 
-                        target={[0, 0, 30]} 
-                        focalLength={ 1.5 } // focal length
-                        bokehScale={ 3 } // bokeh size
-                        height={1000} 
-                        focusDistance={ 8 } // where to focus
+                        target={[ TargetX, TargetY, TargetZ]} 
+                        focalLength={ FocalLength } // focal length
+                        bokehScale={ BokehScale } // bokeh size
+                        height={512} 
+                        focusDistance={ FocusDistance } // where to focus
                     />
                 </EffectComposer>
-                {Array.from({length: count}, (_, i) => (
-                        <Snow key={i} z={-(i / count) * depth -35} 
-                    />
-                    ))}
                 {/* these controls are a helper from react three drei and is used instead of orbit controls */}
-                <PresentationControls 
-                    // if you add global the presentation controls will be added to the whole canvas vs just meshes in the canvas
-                    rotation={ [ 0.13, -0.1, 0 ] }
-                    polar={ [ -0.4, 0.2 ] }
-                    azimuth={ [ -1, 0.75 ] }
-                    config={ { mass: 2, tension: 400 } }
-                    // counter weight and on release will return to initial position
-                    // snap={ { mass: 4, tension: 400 }  }
-                >
-                    <Float rotationIntensity={ 0.8 }>
-                        {/* Picture frame with trees scene model */}
-                        <Portal scale={viewport.width / 10}/>
-                    </Float>
-                </PresentationControls>
+                    <group position={ position }>    
+                        <PresentationControls 
+                            // if you add global the presentation controls will be added to the whole canvas vs just meshes in the canvas
+                            rotation={ [ 0.13, -0.1, 0 ] }
+                            polar={ [ -0.4, 0.2 ] }
+                            azimuth={ [ -1, 0.75 ] }
+                            config={ { mass: 2, tension: 400 } }
+                            // counter weight and on release will return to initial position
+                            // snap={ { mass: 4, tension: 400 }  }
+                        >
+                            <Float rotationIntensity={ 0.8 }>
+                                {/* Picture frame with trees scene model */}
+                                <Portal scale={viewport.width / 10} />
+                            </Float>
+                        </PresentationControls>
+                    </group>
                 <Environment preset='city'/>
             </Suspense>
-            <Perf position='top-left' />
         </group> 
     )
 }
-
-// export const FocalLength = 'FocalLength';
-// export const FocusDistance = 'FocusDistance';
-// export const BokehScale = 'BokehScale';

@@ -5,7 +5,8 @@ import * as THREE from 'three'
 import { useRef, useState } from "react"
 import { useFrame } from '@react-three/fiber'
 import { folder, useControls } from 'leva'
-import { data } from './store'
+import { Perf } from "r3f-perf"
+import { data } from './store.js'
 import { FocalLength, FocusDistance, BokehScale } from './Experience.js'
 
 // function Flakes({ data, range, scale }) {
@@ -40,6 +41,10 @@ import { FocalLength, FocusDistance, BokehScale } from './Experience.js'
 // }
 
 export default function Hero() {
+
+    const { PerfVisible } =  useControls ({
+        PerfVisible: true,
+    })
 
     const { SnowRange, SnowScale, 
         // headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
@@ -110,13 +115,7 @@ export default function Hero() {
                 CloudPositionY: { value: 6, min: -50, max: 50  }, // Y position
                 CloudPositionZ: { value: -4, min: -30, max: 0  }, // Z position
                 CloudColor: { value: '#F1F9FA' } // Cloud Color
-             }),
-
-             DOF: folder ( {
-                FocusDistance: { min: 0, max: 4, value: 2 },
-                FocalLength: { min: 0, max: 1, value: 0.1 },
-                BokehScale: { min: 0, max: 10, value: 2 }
-            })
+             })
         }
     )
 
@@ -126,6 +125,8 @@ export default function Hero() {
     const EBLogo = useGLTF('./meshes/EBLogo.glb')
 
     return <>
+    
+        { PerfVisible ? <Perf position='top-left' /> : false }
         
         <Environment 
             preset={"apartment"}
