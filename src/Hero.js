@@ -88,7 +88,7 @@ export default function Hero() {
             }),
 
             Subheader: folder ({
-                SubSize: { value: .35, min: 0.01, max: 1 },
+                SubSize: { value: .5, min: 0.01, max: 1 },
                 SubColor: { value: 'white' },
                 SubPositionX: { value: 0, min: - 3, max: 3 },
                 SubPositionY: { value: 0, min: -3, max: 3 },
@@ -189,14 +189,14 @@ export default function Hero() {
 
                 <Box marginTop={.3} centerAnchor={true}>
                     <Text
-                        font='./fonts/noto-serif-v21-latin-regular.woff'
+                        font='./fonts/christmas-squad.otf'
                         fontSize={ viewport.width < 3 ? viewport.width / 10 : SubSize }
                         position={ [ SubPositionX, SubPositionY, SubPositionZ ] }
                         maxWidth={ viewport.width }
                         textAlign="center"
                         color={ SubColor }
                     >
-                        From all of us at
+                        from all of us at
                     </Text>
                 </Box>
                 <Box mt={.3} centerAnchor={true}>

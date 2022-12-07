@@ -27,18 +27,18 @@ export const ThirdSection = ({ position }) => {
           <Text 
             color='white' 
             scale={4}
-            textAlign='left'
             maxWidth={(viewport.width > breakpoint) ? 3 : 1}
+            font='./fonts/christmas-squad.otf'
           >
-            THIRD Section
+            Third Section
           </Text>
           <Text 
             maxWidth={viewport.width > breakpoint ? 2 : 1.75}
-            textAlign='left'
             anchorY="top"
             position={[0, -0.3, 0]}
             color='white'
             scale={2}
+            font='./fonts/campton-light.otf'
           >
             Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
           </Text>
