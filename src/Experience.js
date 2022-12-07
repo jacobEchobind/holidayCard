@@ -5,7 +5,7 @@ import { TiltShift, Bloom, Noise, Vignette, EffectComposer, DepthOfField } from 
 import { BlendFunction } from 'postprocessing'
 import { Leva, folder, useControls } from 'leva'
 import * as THREE from 'three'
-import { Portal } from './Portal.js'
+import { Main } from './Main.js'
 
 export default function Experience({ position}) {
     const { viewport } = useThree();
@@ -191,7 +191,7 @@ function Snow({z}) {
                         >
                             <Float rotationIntensity={ 0.8 }>
                                 {/* Picture frame with trees scene model */}
-                                <Portal scale={viewport.width / 10} />
+                                <Main scale={viewport.width / 10} />
                             </Float>
                         </PresentationControls>
                     </group>
