@@ -45,13 +45,14 @@ export default function Hero() {
     const { viewport } = useThree();
 
     const { PerfVisible } =  useControls ({
-        PerfVisible: true,
+        PerfVisible: false,
     })
 
     const { SnowRange, SnowScale, 
         // headerScale, headerRotationX, headerRotationY, headerPositionX, headerPositionY, headerPositionZ,
         header1Scale, header1RotationX, header1RotationY, 
         header1PositionX, header1PositionY, header1PositionZ,
+        color1, color2, wireframe,
         header2Scale, header2RotationX, header2RotationY, 
         header2PositionX, header2PositionY, header2PositionZ,
         EBScale, EBRotationX, EBRotationY, EBPositionX, EBPositionY, EBPositionZ,
@@ -67,6 +68,11 @@ export default function Hero() {
                 header1PositionX: { value: 0, min: - 3, max: 3, step: 0.01 },
                 header1PositionY: { value: 0, min: -3, max: 3, step: 0.01 },
                 header1PositionZ: { value: 0, min: -3, max: 3, step: 0.01 },
+                wireframe: false,
+            }),
+
+            material: folder({
+                color1: '#ff0000',
             }),
 
             Header2: folder ({
@@ -76,6 +82,11 @@ export default function Hero() {
                 header2PositionX: { value: 0, min: -3, max: 3, step: 0.01 },
                 header2PositionY: { value: 0, min: -3, max: 3, step: 0.01 },
                 header2PositionZ: { value: 0, min: -3, max: 3, step: 0.01 },
+                wireframe: false,
+            }),
+
+            material: folder({
+                color2: '#ff0000',
             }),
 
             EBLogo: folder ({
@@ -126,13 +137,37 @@ export default function Hero() {
             }
     )
 
+    // const { options, resolution, blur } = useControls('Background', {
+    //         Environment: folder ({
+    //             // options: { 
+    //             //     apartment: 'apartment',
+    //             //     city: 'city',
+    //             //     dawn: 'dawn',
+    //             //     forest: 'forest',
+    //             //     lobby: 'lobby',
+    //             //     night: 'night',
+    //             //     park: 'park',
+    //             //     studio: 'studio',
+    //             //     sunset: 'sunset',
+    //             //     warehouse: 'warehouse'
+    //             // },
+    //             resolution: { value: 128, min: 64, max: 2048, step: 8 },
+    //             blur: { value: 3, min: 0, max: 24, step: 0.01 },
+    //         })
+            
+    //     },
+    //     {
+    //         collapsed: true,
+    //     }
+    // )
+
     const header1 = useGLTF('./meshes/happy.glb')
     const header2 = useGLTF('./meshes/holidays.glb')
     const EBLogo = useGLTF('./meshes/EBLogo.glb')
 
     return <>
         
-        { PerfVisible ? <Perf position='top-left' /> : null }
+        { PerfVisible ? <Perf position='top-left' /> : true }
 
         <Environment 
             preset={"apartment"}
@@ -140,6 +175,7 @@ export default function Hero() {
             frames={Infinity} 
             resolution={128} 
             blur={3}
+            background={ false }
             // remove backgound or set to not visible so we can add the color in CSS
         />
 
@@ -172,7 +208,10 @@ export default function Hero() {
                             rotation-x={ header1RotationX }
                             rotation-y={ header1RotationY }
                             scale={ viewport.width < 2.75 ? viewport.width / 80 : header1Scale }
-                        />
+                            wireframe={ wireframe }
+                        >
+                            <meshStandardMaterial material={ color1 } />
+                        </primitive>
                     </Box>
                     <Box 
                         marginLeft={.4}
@@ -185,7 +224,9 @@ export default function Hero() {
                             rotation-x={ header2RotationX }
                             rotation-y={ header2RotationY }
                             scale={ viewport.width < 2.75 ? viewport.width / 80 : header1Scale }
-                        />
+                        >
+                             <meshStandardMaterial material={ color2 } />
+                        </primitive>
                     </Box>
                 </Box>
 

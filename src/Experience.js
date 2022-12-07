@@ -3,7 +3,7 @@ import { useState, useRef, Suspense } from 'react'
 import { Instances, Instance, useGLTF, PresentationControls, Float, Environment } from '@react-three/drei'
 import { TiltShift, Bloom, Noise, Vignette, EffectComposer, DepthOfField } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
-import { folder, useControls } from 'leva'
+import { Leva, folder, useControls } from 'leva'
 import * as THREE from 'three'
 import { Portal } from './Portal.js'
 
@@ -14,7 +14,6 @@ export default function Experience({ position}) {
             FocusDistance, FocalLength, BokehScale, TargetX, TargetY, TargetZ, DOFVisible, // DOF
             Offset, Darkness, Eskil, OptionsV, VignetteVisible, // vignette
             BLuminanceThreshold, BLuminanceSmoothing, BHeight, BOpacity, BloomVisible, // bloom
-            SnowDepth, SnowVisible, SnowCount, SnowSpeed,  // snow
         } = useControls('Effects', {
          
             DepthOfField: folder ( {
@@ -75,13 +74,27 @@ export default function Experience({ position}) {
                 BHeight: { value: 100, min: 0, max: 500, step: 0.1 },
                 BOpacity: { value: 1.5, min: 0, max: 5, step: 0.01 },
                 BloomVisible: true,
-        }),
+        })
         
-            Snow: folder ({
-                SnowDepth: { value: 35, min: 0, max: 100, step: 0.01 }, // distance from view
-                SnowSpeed: { value: .05, min: 0, max: 5, step: 0.01 }, // rate of snowfall
-                SnowCount: { value: 150, min: 0.0, max: 200, step: 0.1 }, // amount of snow
-                SnowVisible: true,
+        //     Snow: folder ({
+        //         SnowDepth: { value: 35, min: 0, max: 100, step: 0.01 }, // distance from view
+        //         SnowSpeed: { value: .05, min: 0, max: 5, step: 0.01 }, // rate of snowfall
+        //         SnowCount: { value: 150, min: 0.0, max: 200, step: 0.1 }, // amount of snow
+        //         SnowVisible: true,
+        // })    
+
+    },
+        {
+        collapsed: true,
+        }
+)
+
+    const { SnowDepth, SnowVisible, SnowCount, SnowSpeed } = useControls('Snow', {
+        Snow: folder ({
+            SnowDepth: { value: 35, min: 0, max: 100, step: 0.01 }, // distance from view
+            SnowSpeed: { value: .05, min: 0, max: 5, step: 0.01 }, // rate of snowfall
+            SnowCount: { value: 150, min: 0.0, max: 200, step: 0.1 }, // amount of snow
+            SnowVisible: true,
         })    
 
     },
@@ -89,6 +102,7 @@ export default function Experience({ position}) {
         collapsed: true,
         }
 )
+
 
 function Snow({z}) {
     const ref = useRef()
@@ -119,7 +133,6 @@ function Snow({z}) {
 
     return (
         <group>
-            
             <Environment preset='city'/>
             <ambientLight intensity={.45} />
             <spotLight position={[10, 10, 10]} intensity={2} />
