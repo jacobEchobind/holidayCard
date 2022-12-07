@@ -35,27 +35,30 @@ export const SecondSection = ({ position }) => {
           </Sphere>
         </Box>
         
-        <Box centerAnchor={true}
+        <Box 
+          centerAnchor={true}
           marginLeft={viewport.width > breakpoint ? .4 : 0}
         >
-          <Text 
-            color='white' 
-            scale={4}
-            maxWidth={(viewport.width > breakpoint) ? 3 : 1}
-            textAlign='left'
-          >
-            SECOND Section
-          </Text>
-          <Text 
-            anchorY="top"
-            color='white'
-            position={[0, -0.3, 0]}
-            textAlign='left'
-            maxWidth={viewport.width > breakpoint ? 2 : 1.75}
-            scale={2}
-          >
-            Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
-          </Text>
+            <Text 
+              color='white' 
+              scale={4}
+              maxWidth={(viewport.width > breakpoint) ? 3 : 1}
+              font='./fonts/christmas-squad.otf'
+            >
+              Second Section
+            </Text>
+            <Text 
+              anchorY="top"
+              color='white'
+              position={[0, -0.3, 0]}
+              textAlign='left'
+              maxWidth={viewport.width > breakpoint ? 2 : 1.75}
+              scale={2}
+              font='./fonts/campton-light.otf'
+
+            >
+              Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
+            </Text>
         </Box>
 
       </Box>
