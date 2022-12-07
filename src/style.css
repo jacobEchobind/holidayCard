@@ -25,3 +25,8 @@ canvas {
     z-index: 1;
 }
 
+@font-face {
+    font-family: 'ChristmasSquad';
+    src: url("../public/fonts/christmas-squad.otf") format("opentype");
+}
+
