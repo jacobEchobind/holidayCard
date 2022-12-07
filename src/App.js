@@ -1,6 +1,7 @@
 import { useThree } from '@react-three/fiber'
 import { ScrollControls, Scroll } from '@react-three/drei'
 import './style.css'
+// import { Leva } from 'leva'
 
 // Sections
 import Hero from './Hero.js'
@@ -14,6 +15,7 @@ const App = () => {
 
   return (
     <>
+        {/* <Leva collapsed /> */}
         <ScrollControls
             pages={4} // Each page takes 100% of the height of the canvas
             distance={.5} // A factor that increases scroll bar travel (default: 1)

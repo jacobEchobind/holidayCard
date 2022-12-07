@@ -15,13 +15,13 @@ html, body, #root {
 }
 
 body {
-    background-color: #2d4967;
+    /* background-color: #2d4967; */
+    background-image: linear-gradient(#2d4967, #0F2B49);
+    /* add in a top and bottom color */
     /* background: #101060; */
 }
 
 canvas {
-    /* touch-action: none; */
-    /* TODO: I wonder if removing touch-actiob above will allow scrolling on mobile? */
     z-index: 1;
 }
 
