@@ -6,20 +6,26 @@ import { Text, useGLTF, Sphere } from '@react-three/drei'
 
 export const SecondSection = ({ position }) => {
   const { viewport } = useThree();
-  const breakpoint = 4.5;
+  const breakpoint = 4;
 
   return (
     <>
-      <mesh scale={[viewport.width, viewport.height / 3, 1]} position={position} >
+      <mesh 
+        scale={[viewport.width, viewport.height, 1]} 
+        position={position}
+      >
         <planeGeometry />
         <meshPhongMaterial color={'lightblue'} depthTest={false} />
       </mesh>
-      <group position={[0, .5, 0]}>
+      <group 
+        position={viewport.width > breakpoint ? [0, .5, 0] : [0, -.7, 0]}
+      >
         <Flex  
           dir='column'
           position={position} 
           size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
           alignItems='center'
+          justifyContent='center'
           centerAnchor={true}
         >
           <Box
@@ -37,7 +43,7 @@ export const SecondSection = ({ position }) => {
               marginTop={viewport.width > breakpoint ? .4 : .5}
             >
               <Sphere args={[.3, 16, 16]}>
-                  <meshLambertMaterial attach="material" color="darkgreen" />
+                  <meshLambertMaterial attach="material" color="red" />
               </Sphere>
             </Box>
             
@@ -59,9 +65,8 @@ export const SecondSection = ({ position }) => {
                   position={[0, -0.3, 0]}
                   textAlign='left'
                   maxWidth={viewport.width > breakpoint ? 2 : 1.75}
-                  scale={2}
+                  scale={1.3}
                   font='./fonts/proxima-nova.otf'
-
                 >
                   Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
                 </Text>
