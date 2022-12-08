@@ -18,7 +18,8 @@ export const SecondSection = ({ position }) => {
         <meshPhongMaterial color={'lightblue'} depthTest={false} />
       </mesh>
       <group 
-        position={viewport.width > breakpoint ? [0, .5, 0] : [0, -.7, 0]}
+        // position={viewport.width > breakpoint ? [0, .5, 0] : [0, -.7, 0]}
+        position={[0, 1.3, 0]}
       >
         <Flex  
           dir='column'
@@ -37,7 +38,7 @@ export const SecondSection = ({ position }) => {
             width='100%'
             height='100%'
           >
-            <Box 
+            {/* <Box 
               width={1}
               centerAnchor={true}
               marginTop={viewport.width > breakpoint ? .4 : .5}
@@ -45,30 +46,41 @@ export const SecondSection = ({ position }) => {
               <Sphere args={[.3, 16, 16]}>
                   <meshLambertMaterial attach="material" color="red" />
               </Sphere>
-            </Box>
+            </Box> */}
             
             <Box 
               centerAnchor={true}
               marginLeft={viewport.width > breakpoint ? .4 : 0}
             >
                 <Text 
-                  color='black' 
+                  color='darkred' 
                   scale={4}
-                  maxWidth={(viewport.width > breakpoint) ? 3 : 1}
+                  maxWidth={(viewport.width > breakpoint) ? 3 :  1.75}
                   font='./fonts/christmas-squad.otf'
                 >
-                  Second Section
+                  As the holiday
+                </Text>
+                <Text 
+                  anchorY="top"
+                  position={[0, -0.2, 0]}
+
+                  color='darkred' 
+                  scale={4}
+                  maxWidth={(viewport.width > breakpoint) ? 3 :  1.75}
+                  font='./fonts/christmas-squad.otf'
+                >
+                  season approaches,
                 </Text>
                 <Text 
                   anchorY="top"
                   color='black'
-                  position={[0, -0.3, 0]}
+                  position={[0, -0.8, 0]}
                   textAlign='left'
-                  maxWidth={viewport.width > breakpoint ? 2 : 1.75}
+                  maxWidth={viewport.width > breakpoint ? 3 : 1.75}
                   scale={1.3}
                   font='./fonts/proxima-nova.otf'
                 >
-                  Nullam viverra, mauris quis imperdiet gravida, nunc risus mollis enim, eu molestie risus turpis in ante. Nullam molestie sapien quis fermentum rhoncus.
+                  We at Echobind would like to take a moment to extend our warmest wishes to all of our valued clients and partners. We are grateful for your continued support and trust in us, and we look forward to working together in the coming year to achieve even greater success. As we reflect on the past year, we are proud of the progress we have made and excited for the future possibilities that lie ahead. May this holiday season be filled with joy, peace, and prosperity for you and your loved ones.
                 </Text>
             </Box>
 
