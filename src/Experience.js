@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber'
 import { useState, useRef, Suspense } from 'react'
-import { Instances, Instance, useGLTF, PresentationControls, Float, Environment } from '@react-three/drei'
+import { Instances, Instance, useGLTF, PresentationControls, Float, Environment, Text } from '@react-three/drei'
 import { TiltShift, Bloom, Noise, Vignette, EffectComposer, DepthOfField } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
 import { Leva, folder, useControls } from 'leva'
@@ -9,6 +9,8 @@ import { Main } from './Main.js'
 
 export default function Experience({ position}) {
     const { viewport } = useThree();
+
+
 
     const { 
             FocusDistance, FocalLength, BokehScale, TargetX, TargetY, TargetZ, DOFVisible, // DOF
@@ -73,7 +75,7 @@ export default function Experience({ position}) {
                 BLuminanceSmoothing: { value: .75, min: 0, max: 1, step: 0.01 },
                 BHeight: { value: 100, min: 0, max: 500, step: 0.1 },
                 BOpacity: { value: 1.5, min: 0, max: 5, step: 0.01 },
-                BloomVisible: true,
+                BloomVisible: false,
         })
         
         //     Snow: folder ({
@@ -127,7 +129,7 @@ function Snow({z}) {
       }
     })
   
-    return (<mesh ref={ref} castShadow receiveShadow geometry={nodes.Snowflake_low_1.geometry} material={materials["Ice Imperfections"]} />)
+    return (<mesh ref={ref} castShadow receiveShadow geometry={nodes.Snowflake_low_1.geometry} material={materials["Ice Imperfections"]}/>)
     // material-emissive={"orange"} //
   }
 
@@ -136,6 +138,17 @@ function Snow({z}) {
             <Environment preset='city'/>
             <ambientLight intensity={.45} />
             <spotLight position={[10, 10, 10]} intensity={2} />
+
+            {/* "Click and drag to view model" box */}
+            <group position={[0, position[1] - 2.5, 0 ]}>
+                <mesh scale={[1.1, .15, 100]} >
+                    <planeGeometry />
+                    <meshPhongMaterial color={'white'} depthTest={false} />
+                </mesh>
+
+                <Text color='black' scale={.8}>Click and drag model to view</Text>
+            </group>
+
             <Suspense fallback={ null }>
 
                 <EffectComposer>
@@ -197,6 +210,17 @@ function Snow({z}) {
                     </group>
                 <Environment preset='city'/>
             </Suspense>
+
+            {/* Background attempt thus far */}
+            {/* <mesh 
+                scale={[viewport.width, viewport.height, 1]} 
+                position={position}
+            >
+                <planeGeometry />
+                <meshPhongMaterial color={'black'} depthTest={false} />
+            </mesh> */}
+           
+
         </group> 
     )
 }

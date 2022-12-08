@@ -9,6 +9,7 @@ import { Flex, Box } from '@react-three/flex'
 import { data } from './store'
 import { Perf } from "r3f-perf"
 import { FocalLength, FocusDistance, BokehScale } from './Experience.js'
+import HappyHolidays from "./HappyHolidays"
 
 // function Flakes({ data, range, scale }) {
 //     const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
@@ -196,12 +197,13 @@ export default function Hero() {
                 <Box 
                     dir='row' 
                     justifyContent='center'
-                    flexWrap='wrap'
-                    centerAnchor={false}
-                    alignItems='center'
+                    centerAnchor={true}
                     width="100%"
                 >
-                    <Box centerAnchor={true} marginTop={.1}>
+                    <HappyHolidays />
+
+                    {/* Happy Holidays 3D Model */}
+                    {/* <Box centerAnchor={true} marginTop={.1}>
                         <primitive 
                             object={ header1.scene } 
                             position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
@@ -227,8 +229,9 @@ export default function Hero() {
                         >
                              <meshStandardMaterial material={ color2 } />
                         </primitive>
-                    </Box>
+                    </Box> */}
                 </Box>
+
 
                 <Box marginTop={.3} centerAnchor={true}>
                     <Text
