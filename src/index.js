@@ -46,11 +46,9 @@ import { Loader } from './Loader'
 const root = ReactDOM.createRoot(document.querySelector('#root'))
 
 root.render(
-    <>
-        <Canvas camera={{ near: 0.1, far: 200, fov: 56, antialias: true}}>
-            <Suspense fallback={<Loader/>}>
-                <App />
-            </Suspense>
-        </Canvas>
-    </>
+    <Canvas camera={{ near: 0.1, far: 200, fov: 56, antialias: true}}>
+        <Suspense fallback={<Loader/>}>
+            <App />
+        </Suspense>
+    </Canvas>
 )

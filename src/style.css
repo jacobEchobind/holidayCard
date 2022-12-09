@@ -14,15 +14,16 @@ html, body, #root {
     overflow-x: hidden;
 }
 
-body {
-    /* background-color: #2d4967; */
-    background-image: linear-gradient(#2d4967, #0F2B49);
-    /* add in a top and bottom color */
-    /* background: #101060; */
-}
-
 canvas {
     z-index: 1;
+    background-image: linear-gradient(#006C87, #090E0F);
+    /* background:
+    radial-gradient(circle at top left, transparent 15px, #00BFE4 0) top left,
+    radial-gradient(circle at top right, transparent 15px, #00BFE4 0) top right,
+    radial-gradient(circle at bottom right, transparent 15px, #00BFE4 0) bottom right,
+    radial-gradient(circle at bottom left, transparent 15px, #00BFE4 0) bottom left;
+    background-size: 50% 50%;
+    background-repeat: no-repeat; */
 }
 
 @font-face {

@@ -1,0 +1,1 @@
+export const fontOptions = ["christmas-squad", "proxima-nova", "freightsans-medium", "freightsans-bold", "phantomsans-light", "phantomsans-regular", "phantomsans-bold"]
