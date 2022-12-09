@@ -1,6 +1,6 @@
 import { useFrame, useThree } from '@react-three/fiber'
 import { useState, useRef, Suspense } from 'react'
-import { Instances, Instance, useGLTF, PresentationControls, Float, Environment, Text } from '@react-three/drei'
+import { Instances, Instance, useGLTF, PresentationControls, Float, Environment, Text, OrbitControls } from '@react-three/drei'
 import { TiltShift, Bloom, Noise, Vignette, EffectComposer, DepthOfField } from '@react-three/postprocessing'
 import { BlendFunction } from 'postprocessing'
 import { Leva, folder, useControls } from 'leva'
@@ -9,8 +9,6 @@ import { Main } from './Main.js'
 
 export default function Experience({ position}) {
     const { viewport } = useThree();
-
-
 
     const { 
             FocusDistance, FocalLength, BokehScale, TargetX, TargetY, TargetZ, DOFVisible, // DOF
@@ -25,12 +23,12 @@ export default function Experience({ position}) {
                 TargetX:{ value: 0, min: 0, max: 50, step: 0.1 },
                 TargetY:{ value: 0, min: 0, max: 50, step: 0.1 },
                 TargetZ:{ value: 30, min: 0, max: 50, step: 0.1 },
-                DOFVisible: true,
+                DOFVisible: false,
         }), 
             
             Vignette: folder ({
                 Offset: { value: 0.2, min: 0, max: 5, step: 0.01 },
-                Darkness: { value: 0.9, min: 0, max: 5, step: 0.01 },
+                Darkness: { value: 0.7, min: 0, max: 5, step: 0.01 },
                 Eskil: { value: false },
                 VignetteVisible: true,
                 // OptionsV: { 
@@ -95,7 +93,7 @@ export default function Experience({ position}) {
         Snow: folder ({
             SnowDepth: { value: 35, min: 0, max: 100, step: 0.01 }, // distance from view
             SnowSpeed: { value: .05, min: 0, max: 5, step: 0.01 }, // rate of snowfall
-            SnowCount: { value: 150, min: 0.0, max: 200, step: 0.1 }, // amount of snow
+            SnowCount: { value: 350, min: 0.0, max: 200, step: 0.1 }, // amount of snow
             SnowVisible: true,
         })    
 
@@ -129,7 +127,7 @@ function Snow({z}) {
       }
     })
   
-    return (<mesh ref={ref} castShadow receiveShadow geometry={nodes.Snowflake_low_1.geometry} material={materials["Ice Imperfections"]}/>)
+    return (<mesh ref={ref} castShadow scale={.1} receiveShadow geometry={nodes.Snowflake_low_1.geometry} material={materials["Ice Imperfections"]}/>)
     // material-emissive={"orange"} //
   }
 
@@ -192,35 +190,20 @@ function Snow({z}) {
                     
                 </EffectComposer>
                 {/* these controls are a helper from react three drei and is used instead of orbit controls */}
-                    <group position={ position }>    
+                    <group position={position}>    
                         <PresentationControls 
-                            // if you add global the presentation controls will be added to the whole canvas vs just meshes in the canvas
-                            rotation={ [ 0.13, -0.1, 0 ] }
-                            polar={ [ -0.4, 0.2 ] }
-                            azimuth={ [ -1, 0.75 ] }
-                            config={ { mass: 2, tension: 400 } }
-                            // counter weight and on release will return to initial position
-                            // snap={ { mass: 4, tension: 400 }  }
+                            polar={[ -0.4, 0.2 ]}
+                            azimuth={[ -1, 0.75 ]}
+                            cursor={true}
                         >
-                            <Float rotationIntensity={ 0.8 }>
-                                {/* Picture frame with trees scene model */}
-                                <Main scale={viewport.width / 10} />
-                            </Float>
+                        <Float rotationIntensity={ 1.5 }>
+                            {/* Picture frame with trees scene model */}
+                            <Main scale={viewport.width > 5 ? viewport.width / 10 : viewport.width / 6} />
+                        </Float>
                         </PresentationControls>
                     </group>
                 <Environment preset='city'/>
             </Suspense>
-
-            {/* Background attempt thus far */}
-            {/* <mesh 
-                scale={[viewport.width, viewport.height, 1]} 
-                position={position}
-            >
-                <planeGeometry />
-                <meshPhongMaterial color={'black'} depthTest={false} />
-            </mesh> */}
-           
-
         </group> 
     )
 }
