@@ -192,7 +192,7 @@ function Snow({z}) {
                 {/* these controls are a helper from react three drei and is used instead of orbit controls */}
                     <group position={position}>    
                         <PresentationControls 
-                            polar={[ -0.4, 0.2 ]}
+                            polar={[ .3, .5 ]}
                             azimuth={[ -1, 0.75 ]}
                             cursor={true}
                         >
