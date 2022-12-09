@@ -11,37 +11,6 @@ import { Perf } from "r3f-perf"
 import { FocalLength, FocusDistance, BokehScale } from './Experience.js'
 import HappyHolidays from "./HappyHolidays"
 
-// function Flakes({ data, range, scale }) {
-//     const { nodes, materials } = useGLTF('./meshes/snowflake.glb')
-//     return (
-//       <Instances range={ range } scale={ scale } material={materials['Ice Imperfections']}  geometry={nodes.Snowflake_low_1.geometry}>
-//         <group position={[0, 0, 0]}>
-//           {data.map((props, i) => (
-//             <Flake key={i} {...props} />
-//           ))}
-//         </group>
-//       </Instances>
-//     )
-// }
-
-
-// function Flake({ random, color = new THREE.Color(), ...props }) {
-//     const ref = useRef()
-//     const [ hovered, setHover ] = useState(false)
-//     useFrame((state) => {
-//         const t = state.clock.getElapsedTime() + random * 10000
-//         ref.current.rotation.set(Math.cos(t / 4) / 2, Math.sin(t / 4) / 2, Math.cos(t / 1.5) / 2)
-//         ref.current.position.y = Math.sin(t / 1.5) / 2
-//         ref.current.scale.x = ref.current.scale.y = ref.current.scale.z = THREE.MathUtils.lerp(ref.current.scale.z, hovered ? 0.08 : 0.033, 0.05)
-//         ref.current.color.lerp(color.set(hovered ? '#D4F4F5' : '#E7F5F6'), hovered ? .01 : 0.5)
-//   })
-//   return (
-//     <group {...props}>
-//       <Instance scale={ 0.01 } ref={ref} onPointerOver={(e) => (e.stopPropagation(), setHover(true))} onPointerOut={(e) => setHover(false)} />
-//     </group>
-//   )
-// }
-
 export default function Hero() {
     const { viewport } = useThree();
 
@@ -95,7 +64,7 @@ export default function Hero() {
                 EBRotationX: { value: 0, min: - Math.PI , max: Math.PI },
                 EBRotationY: { value: 0, min: - Math.PI, max: Math.PI },
                 EBPositionX: { value: 0, min: - 3, max: 3 },
-                EBPositionY: { value: 0, min: -3, max: 3 },
+                EBPositionY: { value: .4, min: -3, max: 3 },
                 EBPositionZ: { value: 0, min: -3, max: 3 },
             }),
 
@@ -103,7 +72,7 @@ export default function Hero() {
                 SubSize: { value: .5, min: 0.01, max: 1 },
                 SubColor: { value: 'white' },
                 SubPositionX: { value: 0, min: - 3, max: 3 },
-                SubPositionY: { value: 0, min: -3, max: 3 },
+                SubPositionY: { value: .3, min: -3, max: 3 },
                 SubPositionZ: { value: 0, min: -3, max: 3 },
             }),
 
@@ -119,19 +88,6 @@ export default function Hero() {
                 FloatRangeX: { value: -.25, min: -3, max: 3 },
                 FloatRangeY: { value: .25, min: -3, max: 3 }
             }),
-
-            // Clouds: folder ({ 
-            //     CloudVisible: { value: true }, // Boolean
-            //     CloudOpacity: { value: 0.8, min: 0, max: 2  }, // Cloud opacity
-            //     CloudSpeed: { value: 0.025, min: 0, max: 0.5  }, // Rotation speed
-            //     CloudWidth: { value: 4.5, min: 0, max: 20  }, // Width of the full cloud
-            //     CloudDepth: { value: 0, min: -2, max: 0  }, // Z-dir depth
-            //     CloudSegments: { value: 10 }, // Number of particles
-            //     CloudPositionX: { value: -3, min: -50, max: 50  }, // X position
-            //     CloudPositionY: { value: 6, min: -50, max: 50  }, // Y position
-            //     CloudPositionZ: { value: -4, min: -30, max: 0  }, // Z position
-            //     CloudColor: { value: '#F1F9FA' } // Cloud Color
-            //  })
         },
             {
                 collapsed: true,
@@ -176,8 +132,6 @@ export default function Hero() {
             frames={Infinity} 
             resolution={128} 
             blur={3}
-            background={ false }
-            // remove backgound or set to not visible so we can add the color in CSS
         />
 
         <Float
@@ -193,45 +147,14 @@ export default function Hero() {
                 centerAnchor={true}
                 justifyContent='center'
             >
+
                 {/*  H A P P Y   H O L I D A Y S  */}
                 <Box 
-                    dir='row' 
-                    justifyContent='center'
                     centerAnchor={true}
                     width="100%"
                 >
                     <HappyHolidays />
-
-                    {/* Happy Holidays 3D Model */}
-                    {/* <Box centerAnchor={true} marginTop={.1}>
-                        <primitive 
-                            object={ header1.scene } 
-                            position={ [ header1PositionX, header1PositionY, header1PositionZ ] }
-                            rotation-x={ header1RotationX }
-                            rotation-y={ header1RotationY }
-                            scale={ viewport.width < 2.75 ? viewport.width / 80 : header1Scale }
-                            wireframe={ wireframe }
-                        >
-                            <meshStandardMaterial material={ color1 } />
-                        </primitive>
-                    </Box>
-                    <Box 
-                        marginLeft={.4}
-                        marginTop={.1}
-                        centerAnchor={true}
-                    >
-                        <primitive 
-                            object={ header2.scene } 
-                            position={ [ header2PositionX, header2PositionY, header2PositionZ ] }
-                            rotation-x={ header2RotationX }
-                            rotation-y={ header2RotationY }
-                            scale={ viewport.width < 2.75 ? viewport.width / 80 : header1Scale }
-                        >
-                             <meshStandardMaterial material={ color2 } />
-                        </primitive>
-                    </Box> */}
                 </Box>
-
 
                 <Box marginTop={.3} centerAnchor={true}>
                     <Text
@@ -255,11 +178,5 @@ export default function Hero() {
                 </Box>
             </Flex>
         </Float>
-
-        {/* <Flakes 
-            data={ data } 
-            range={ SnowRange } 
-            scale={ SnowScale } 
-        /> */}
     </>
 }
