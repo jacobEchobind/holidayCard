@@ -69,7 +69,7 @@ export default function Hero() {
       }),
 
       Subheader: folder({
-        textSub: "from all of us at",
+        textSub: "2022 was a big year!",
         fontSub: { options: [...fontOptions] },
         subSize: { value: 0, min: 0, max: 1 },
         subColor: { value: "white" },
@@ -124,17 +124,6 @@ export default function Hero() {
           centerAnchor={true}
           justifyContent="center"
         >
-          {/*  H A P P Y   H O L I D A Y S  */}
-          <Box centerAnchor={true} width="100%">
-            <HappyHolidays
-              headerText={textHeader}
-              headerColor={colorHeader}
-              headerPositionY={yPosHeader}
-              headerDepth={depthHeader}
-              headerScale={scaleHeader}
-            />
-          </Box>
-
           <Box marginTop={0.3} centerAnchor={true}>
             <Text
               font={`./fonts/${fontSub}.otf`}
@@ -166,6 +155,18 @@ export default function Hero() {
               position={[EBXPosition, EBYPosition, EBZPosition]}
               rotation={[EBXRotation, EBYRotation, 0]}
             />
+          </Box>
+          <Box mt={0.3} centerAnchor={true}>
+            <Text
+              anchorY="top"
+              color="white"
+              textAlign="left"
+              maxWidth={viewport.width > 4 ? 3 : 1.75}
+              scale={1.3}
+              font={`./fonts/proxima-nova.otf`}
+            >
+              Here are some of the things we're thankful for this year.
+            </Text>
           </Box>
         </Flex>
       </Float>
