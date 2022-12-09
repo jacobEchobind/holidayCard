@@ -22,7 +22,7 @@ const App = () => {
             <directionalLight intensity={0.2} position={[ 0,  5, 3 ]}/>
             <directionalLight intensity={0.1} position={[ 0,  0, 5 ]}/>
             <Hero /> 
-            <SecondSection position={[x, -viewport.height * 1, 0]} />
+            <SecondSection position={[x, -viewport.height * 1 + .3, 0]} />
             <directionalLight intensity={0.5} position={[ 0, (-viewport.height * 2 + 5), 3 ]}/>
             {/* <ThirdSection position={[x, -viewport.height * 2, 0]} /> */}
             <Experience position={[x, -viewport.height * 2, 0]} />

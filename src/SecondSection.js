@@ -1,21 +1,23 @@
 import { useRef } from 'react'
-import { useThree } from '@react-three/fiber'
+import { useLoader, useThree } from '@react-three/fiber'
 import { Flex, Box } from '@react-three/flex'
-import { Text, useGLTF, Sphere } from '@react-three/drei'
-
+import { Text } from '@react-three/drei'
+import * as THREE from 'three'
+import { Scene } from './SVG'
 
 export const SecondSection = ({ position }) => {
   const { viewport } = useThree();
   const breakpoint = 4;
+  const paperTexture = useLoader(THREE.TextureLoader, './white-paper-texture.jpg')
 
   return (
     <>
       <mesh 
-        scale={[viewport.width, viewport.height, 1]} 
+        scale={[viewport.width, viewport.height - 1, 1]} 
         position={position}
       >
         <planeGeometry />
-        <meshPhongMaterial color={'lightblue'} depthTest={false} />
+        <meshBasicMaterial attach='material' map={paperTexture} />
       </mesh>
       <group 
         // position={viewport.width > breakpoint ? [0, .5, 0] : [0, -.7, 0]}
@@ -37,23 +39,13 @@ export const SecondSection = ({ position }) => {
             flexWrap='wrap'
             width='100%'
             height='100%'
-          >
-            {/* <Box 
-              width={1}
-              centerAnchor={true}
-              marginTop={viewport.width > breakpoint ? .4 : .5}
-            >
-              <Sphere args={[.3, 16, 16]}>
-                  <meshLambertMaterial attach="material" color="red" />
-              </Sphere>
-            </Box> */}
-            
+          > 
             <Box 
               centerAnchor={true}
               marginLeft={viewport.width > breakpoint ? .4 : 0}
             >
                 <Text 
-                  color='darkred' 
+                  color='#006C87' 
                   scale={4}
                   maxWidth={(viewport.width > breakpoint) ? 3 :  1.75}
                   font='./fonts/christmas-squad.otf'
@@ -64,12 +56,12 @@ export const SecondSection = ({ position }) => {
                   anchorY="top"
                   position={[0, -0.2, 0]}
 
-                  color='darkred' 
+                  color='#006C87' 
                   scale={4}
                   maxWidth={(viewport.width > breakpoint) ? 3 :  1.75}
                   font='./fonts/christmas-squad.otf'
                 >
-                  season approaches,
+                  season approaches...
                 </Text>
                 <Text 
                   anchorY="top"
@@ -83,8 +75,12 @@ export const SecondSection = ({ position }) => {
                   We at Echobind would like to take a moment to extend our warmest wishes to all of our valued clients and partners. We are grateful for your continued support and trust in us, and we look forward to working together in the coming year to achieve even greater success. As we reflect on the past year, we are proud of the progress we have made and excited for the future possibilities that lie ahead. May this holiday season be filled with joy, peace, and prosperity for you and your loved ones.
                 </Text>
             </Box>
-
           </Box>
+          {/* <mesh position={[0, .4, 0]}>
+            <Box centerAnchor={true}>
+              <Scene/>
+            </Box>
+          </mesh> */}
         </Flex>
       </group>
     </>
