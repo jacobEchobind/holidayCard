@@ -3,7 +3,7 @@ import { useLoader, useThree } from '@react-three/fiber'
 import { Flex, Box } from '@react-three/flex'
 import { Text } from '@react-three/drei'
 import * as THREE from 'three'
-import { Scene } from './SVG'
+// import { Scene } from './SVG'
 
 export const SecondSection = ({ position }) => {
   const { viewport } = useThree();
