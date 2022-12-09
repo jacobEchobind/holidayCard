@@ -196,10 +196,10 @@ function Snow({z}) {
                             azimuth={[ -1, 0.75 ]}
                             cursor={true}
                         >
-                        <Float rotationIntensity={ 1.5 }>
+                        {/* <Float rotationIntensity={ 1.5 }> */}
                             {/* Picture frame with trees scene model */}
                             <Main scale={viewport.width > 5 ? viewport.width / 10 : viewport.width / 6} />
-                        </Float>
+                        {/* </Float> */}
                         </PresentationControls>
                     </group>
                 <Environment preset='city'/>
