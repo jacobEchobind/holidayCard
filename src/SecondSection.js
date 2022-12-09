@@ -7,7 +7,7 @@ import { Scene } from "./SVG";
 import { folder, useControls } from "leva";
 import { fontOptions } from "./assets/fonts";
 
-export const SecondSection = ({ position }) => {
+export const SecondSection = ({ position, headingText, bodyText }) => {
   const { viewport } = useThree();
   const breakpoint = 4;
   const paperTexture = useLoader(
@@ -34,7 +34,7 @@ export const SecondSection = ({ position }) => {
       firstLine: folder({
         fontFirstLine: { options: [...fontOptions] },
         scaleFirstLine: { value: 0, min: 0, max: 10 },
-        colorFirstLine: "#006C87",
+        colorFirstLine: "white",
       }),
       secondLine: folder({
         fontSecondLine: { options: [...fontOptions] },
@@ -44,7 +44,7 @@ export const SecondSection = ({ position }) => {
       body: folder({
         fontBody: { options: ["proxima-nova", ...fontOptions] },
         scaleBody: { value: 0, min: 0, max: 10 },
-        colorBody: "black",
+        colorBody: "white",
       }),
       snowman: folder({
         showSnowman: false,
@@ -60,6 +60,7 @@ export const SecondSection = ({ position }) => {
 
   return (
     <>
+      {/**
       <mesh
         scale={[viewport.width, viewport.height - 1, 1]}
         position={position}
@@ -67,6 +68,7 @@ export const SecondSection = ({ position }) => {
         <planeGeometry />
         <meshBasicMaterial attach="material" map={paperTexture} />
       </mesh>
+       */}
       <group
         // position={viewport.width > breakpoint ? [0, .5, 0] : [0, -.7, 0]}
         position={[0, 1.3, 0]}
@@ -98,8 +100,9 @@ export const SecondSection = ({ position }) => {
                 maxWidth={viewport.width > breakpoint ? 3 : 1.75}
                 font={`./fonts/${fontFirstLine}.otf`}
               >
-                As the holiday
+                {headingText}
               </Text>
+              {/**
               <Text
                 anchorY="top"
                 position={[0, -0.2, 0]}
@@ -110,6 +113,7 @@ export const SecondSection = ({ position }) => {
               >
                 season approaches...
               </Text>
+              */}
               <Text
                 anchorY="top"
                 color={colorBody}
@@ -119,14 +123,7 @@ export const SecondSection = ({ position }) => {
                 scale={scaleBody == 0 ? 1.3 : scaleBody}
                 font={`./fonts/${fontBody}.otf`}
               >
-                We at Echobind would like to take a moment to extend our warmest
-                wishes to all of our valued clients and partners. We are
-                grateful for your continued support and trust in us, and we look
-                forward to working together in the coming year to achieve even
-                greater success. As we reflect on the past year, we are proud of
-                the progress we have made and excited for the future
-                possibilities that lie ahead. May this holiday season be filled
-                with joy, peace, and prosperity for you and your loved ones.
+                {bodyText}
               </Text>
             </Box>
           </Box>
