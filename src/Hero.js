@@ -165,7 +165,8 @@ export default function Hero() {
               scale={1.3}
               font={`./fonts/proxima-nova.otf`}
             >
-              Here are some of the things we're thankful for this year.
+              2022 rocked for us, and we think 2023's gonna be even better. Here
+              are some of the things we're thankful for this year.
             </Text>
           </Box>
         </Flex>
