@@ -75,14 +75,6 @@ export default function Experience({ position}) {
                 BOpacity: { value: 1.5, min: 0, max: 5, step: 0.01 },
                 BloomVisible: false,
         })
-        
-        //     Snow: folder ({
-        //         SnowDepth: { value: 35, min: 0, max: 100, step: 0.01 }, // distance from view
-        //         SnowSpeed: { value: .05, min: 0, max: 5, step: 0.01 }, // rate of snowfall
-        //         SnowCount: { value: 150, min: 0.0, max: 200, step: 0.1 }, // amount of snow
-        //         SnowVisible: true,
-        // })    
-
     },
         {
         collapsed: true,
@@ -93,7 +85,7 @@ export default function Experience({ position}) {
         Snow: folder ({
             SnowDepth: { value: 35, min: 0, max: 100, step: 0.01 }, // distance from view
             SnowSpeed: { value: .05, min: 0, max: 5, step: 0.01 }, // rate of snowfall
-            SnowCount: { value: 350, min: 0.0, max: 200, step: 0.1 }, // amount of snow
+            SnowCount: { value: 350, min: 0.0, max: 500, step: 0.1 }, // amount of snow
             SnowVisible: true,
         })    
 
