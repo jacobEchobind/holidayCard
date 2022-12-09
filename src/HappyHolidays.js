@@ -6,12 +6,12 @@ import Inter from './assets/Inter.json'
 
 extend({ TextGeometry })
 
-export default function HappyHolidays() {
+export default function HappyHolidays({headerText, headerColor, headerPositionY, headerDepth, headerScale}) {
   const font = new FontLoader().parse(Inter);
   const { viewport } = useThree();
   const mesh = useRef();
   let textWidth
-  
+
   if(mesh.current) {
     if(mesh.current.geometry.boundingBox) {
       textWidth = mesh.current.geometry.boundingBox.max.x
@@ -20,20 +20,20 @@ export default function HappyHolidays() {
 
   return (
     <mesh 
-      position={[-textWidth/2, 0, 0]}
+      position={[-textWidth/2, headerPositionY, 0]}
       ref={mesh}
     >
-      <textGeometry args={['Happy Holidays', {
+      <textGeometry args={[headerText, {
         font, 
-        size: viewport.width > 3 ? .4 : viewport.width / 12 , 
-        height: .15,
+        size: headerScale == 0 ? (viewport.width > 3.5 ? .4 : viewport.width / 12) : headerScale , 
+        height: headerDepth,
         bevelEnabled: true,
         bevelThickness: .1,
         bevelSize: .01,
         bevelOffset: .001,
         bevelSegments: 3
       }]} />
-      <meshPhysicalMaterial attach='material' color='teal' />
+      <meshPhysicalMaterial attach='material' color={headerColor} />
     </mesh>
   )
 }

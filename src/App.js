@@ -5,7 +5,7 @@ import './style.css'
 // Sections
 import Hero from './Hero.js'
 import { SecondSection } from './SecondSection'
-import { ThirdSection } from './ThirdSection'
+// import { ThirdSection } from './ThirdSection'
 import Experience from './Experience.js'
 
 const App = () => {

@@ -8,10 +8,7 @@ const SvgShape = ({ shape, color, index }) => (
   <mesh>
     <meshPhongMaterial
       attach="material"
-      color='#102A30'
-      // color='teal'
-      // color='#02313D'
-      // color='#006D88'
+      color={color}
       // side={THREE.DoubleSide}
       // depthWrite={false}
       // transparent
@@ -20,15 +17,16 @@ const SvgShape = ({ shape, color, index }) => (
   </mesh>
 )
 
-const SvgAsync = React.memo(({ url, sceneRef }) => {
+const SvgAsync = React.memo(({ url, sceneRef, color, position }) => {
   const { paths } = useLoader(SVGLoader, url)
   const shapes = useMemo(
     () =>
       paths.flatMap((path, index) =>
-        path.toShapes(true).map(shape => ({ index, shape, color: '#006C87' }))
+        path.toShapes(true).map(shape => ({ index, shape, color: color }))
       ),
     [paths]
   )
+
   return (
     <group
       ref={sceneRef}
@@ -37,15 +35,16 @@ const SvgAsync = React.memo(({ url, sceneRef }) => {
       ))}
       // rotation={[0, 0, -Math.PI]}
       rotation={[-Math.PI, -Math.PI, 0]}
-      position={[.8, 0, 0]}
+      position={[position.x, position.y, position.z]}
+      // position={[.8, 0, 0]}
       scale={0.0005}
     />
   )
 })
 
-export function Scene() {
+export function Scene({ color, position }) {
 
   return (
-    <SvgAsync url='./svgs/snowman.svg' />
+    <SvgAsync url='./svgs/snowman.svg' color={color} position={position}/>
   )
 }
