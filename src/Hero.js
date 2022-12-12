@@ -22,7 +22,7 @@ import { Flex, Box } from "@react-three/flex";
 import { data } from "./store";
 import { Perf } from "r3f-perf";
 import { FocalLength, FocusDistance, BokehScale } from "./Experience.js";
-import HappyHolidays from "./HappyHolidays";
+import ThreeDText from "./ThreeDText";
 import { fontOptions } from "./assets/fonts";
 
 export default function Hero() {
@@ -52,24 +52,19 @@ export default function Hero() {
     EBXPosition,
     EBYPosition,
     EBZPosition,
-    FloatSpeed,
-    FloatRotation,
-    FloatIntensity,
-    FloatRangeX,
-    FloatRangeY,
   } = useControls(
     "Hero Section",
     {
       Header: folder({
-        textHeader: "Happy Holidays",
+        textHeader: '2022',
         colorHeader: "teal",
         yPosHeader: { value: 0, min: -Math.PI, max: Math.PI },
-        depthHeader: { value: 0.02, min: 0, max: Math.PI },
+        depthHeader: { value: 0.9, min: 0, max: 2 },
         scaleHeader: { value: 0, min: 0, max: 2 },
       }),
 
       Subheader: folder({
-        textSub: "2022 was a big year!",
+        textSub: "was a big year!",
         fontSub: { options: [...fontOptions] },
         subSize: { value: 0, min: 0, max: 1 },
         subColor: { value: "white" },
@@ -111,12 +106,12 @@ export default function Hero() {
         blur={3}
       />
 
-      <Float
+      {/* <Float
         speed={FloatSpeed} // Animation speed, defaults to 1
         rotationIntensity={FloatRotation} // XYZ rotation intensity, defaults to 1
         floatIntensity={FloatIntensity} // Up/down float intensity, works like a multiplier with floatingRange,defaults to 1
         floatingRange={[FloatRangeX, FloatRangeY]} // Range of y-axis values the object will float within, defaults to [-0.1,0.1]
-      >
+      > */}
         <Flex
           dir="column"
           size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
@@ -124,6 +119,37 @@ export default function Hero() {
           centerAnchor={true}
           justifyContent="center"
         >
+           <Box mt={0.3} centerAnchor={true}>
+            <primitive
+              object={EBLogo.scene}
+              scale={
+                EBScale == 0
+                  ? viewport.width < 2.75
+                    ? viewport.width / 5000
+                    : 0.0003
+                  : EBScale
+              }
+              position={[EBXPosition, EBYPosition, EBZPosition]}
+              rotation={[EBXRotation, EBYRotation, 0]}
+            />
+          </Box>
+
+
+          {/*  H A P P Y   H O L I D A Y S  */}
+          <Box 
+            centerAnchor={true}
+            width="100%"
+          >
+            <ThreeDText
+              headerText={'2022'}
+              // headerText={textHeader}
+              headerColor={colorHeader} 
+              headerPositionY={yPosHeader}
+              headerDepth={depthHeader}
+              headerScale={scaleHeader}
+            />
+          </Box>
+
           <Box marginTop={0.3} centerAnchor={true}>
             <Text
               font={`./fonts/${fontSub}.otf`}
@@ -142,35 +168,24 @@ export default function Hero() {
               {textSub}
             </Text>
           </Box>
-          <Box mt={0.3} centerAnchor={true}>
-            <primitive
-              object={EBLogo.scene}
-              scale={
-                EBScale == 0
-                  ? viewport.width < 2.75
-                    ? viewport.width / 5000
-                    : 0.0003
-                  : EBScale
-              }
-              position={[EBXPosition, EBYPosition, EBZPosition]}
-              rotation={[EBXRotation, EBYRotation, 0]}
-            />
-          </Box>
-          <Box mt={0.3} centerAnchor={true}>
+         
+          <Box 
+          // mt={0.3} 
+          centerAnchor={true}>
             <Text
               anchorY="top"
               color="white"
-              textAlign="left"
-              maxWidth={viewport.width > 4 ? 3 : 1.75}
+              textAlign="center"
+              maxWidth={viewport.width > 4 ? 2.3 : 1.75}
               scale={1.3}
               font={`./fonts/proxima-nova.otf`}
             >
-              2022 rocked for us, and we think 2023's gonna be even better. Here
+              2022 rocked for us, and we think 2023 is gonna be even better. Here
               are some of the things we're thankful for this year.
             </Text>
           </Box>
         </Flex>
-      </Float>
+      {/* </Float> */}
     </>
   );
 }

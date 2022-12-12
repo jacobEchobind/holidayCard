@@ -3,10 +3,12 @@ import { extend, useThree } from "@react-three/fiber"; // extends three-fiber's 
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader"; // loads fonts from a JSON file
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import Inter from "./assets/Inter.json";
+import PhantomSansBold from "./assets/PhantomSansBold.json";
+import ProximaNovaExtrabold from "./assets/ProximaNovaExtrabold.json";
 
 extend({ TextGeometry });
 
-export default function HappyHolidays({
+export default function ThreeDText({
   headerText,
   headerColor,
   headerPositionY,
@@ -24,13 +26,17 @@ export default function HappyHolidays({
     }
   }
 
+  console.log('Hedaer text', headerText)
+
   return (
     <mesh position={[-textWidth / 2, headerPositionY, 0]} ref={mesh}>
+      
       <textGeometry
         args={[
           headerText,
           {
             font,
+            // size: 0.4
             size:
               headerScale == 0
                 ? viewport.width > 3.5

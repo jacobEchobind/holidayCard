@@ -2,10 +2,8 @@ import { useThree } from "@react-three/fiber";
 import { ScrollControls, Scroll } from "@react-three/drei";
 import "./style.css";
 
-// Sections
 import Hero from "./Hero.js";
-import { SecondSection } from "./SecondSection";
-// import { ThirdSection } from './ThirdSection'
+import { CopySection } from "./CopySection";
 import Experience from "./Experience.js";
 
 const App = () => {
@@ -23,46 +21,64 @@ const App = () => {
         <directionalLight intensity={0.1} position={[0, 0, 5]} />
         <Hero />
 
-        <SecondSection
-          position={[x, -viewport.height * 1 + 1, 0]}
-          headingText="We're thankul for our team"
+
+
+        <CopySection
+          position={[x, -viewport.height * 1, 0]}
+          headingText="We're thankul for"
+          threeDText="Our Team"
           bodyText="We finally did an in-person summit with our team for the first time since 2019. It was a blast! We hiked. We giddyapped. We murder mysteried. And best of all, we saw each other."
         />
-        <SecondSection
-          position={[x, -viewport.height * 2 + 2, 0]}
-          headingText="We're thankful for looking good'"
+
+
+
+
+
+
+        <CopySection
+          position={[x, -viewport.height * 2, 0]}
+          headingText="We're thankful for"
+          threeDText="Lookin' Good"
           bodyText="We launched a new website design and new visual branding that is sexy AF. Just like the work we do. (#humblebrag)"
         />
-        <SecondSection
-          position={[x, -viewport.height * 3 + 3, 0]}
-          headingText="We're thankful for Stripe"
+        <CopySection
+          position={[x, -viewport.height * 3, 0]}
+          headingText="We're thankful for"
+          threeDText="Stripe"
           bodyText="We partnered with Stripe, and doggonit it's been great. Helping our clients accept money in complex ways is surprisingly fun (and great for our clients)."
         />
 
-        <SecondSection
-          position={[x, -viewport.height * 4 + 4, 0]}
-          headingText="We're thankful for shipping great work'"
+        <CopySection
+          position={[x, -viewport.height * 4, 0]}
+          headingText="We're thankful for"
+          threeDText="Shipping"
+          threeDTextLine2="Great Work"
           bodyText="Don't let the Stripe partnership fool you—money handling isn't all we do. We shipped mobile apps this year. We shipped web apps. We created beautiful designs. And overall, we made dozens of clients like you really happy."
         />
 
-        <SecondSection
-          position={[x, -viewport.height * 5 + 5, 0]}
-          headingText="We're thankful for health and happiness"
+        <CopySection
+          position={[x, -viewport.height * 5, 0]}
+          headingText="We're thankful for"
+          threeDText="Health &"
+          threeDTextLine2="Happiness"
           bodyText="Throughout the course of all of this fulfilling work, we had laughs, took care of family and stayed healthy and happy. "
         />
 
-        <SecondSection
-          position={[x, -viewport.height * 6 + 6, 0]}
-          headingText="Last but not least...we're thankful for you"
+        <CopySection
+          position={[x, -viewport.height * 6, 0]}
+          preHeadingText="Last but not least... "
+          headingText="we're thankful for"
+          threeDText="You!"
           bodyText="We couldn't do any of this without you. Thank you for being a part of our journey. We're excited to see what 2022 brings."
         />
 
+        <Experience position={[x, -viewport.height * 7, 0]} />
+
+
         <directionalLight
           intensity={0.5}
-          position={[0, -viewport.height * 7 + 7, 3]}
+          position={[0, -viewport.height * 8, 3]}
         />
-        {/* <ThirdSection position={[x, -viewport.height * 2, 0]} /> */}
-        <Experience position={[x, -viewport.height * 7 + 7, 0]} />
       </Scroll>
     </ScrollControls>
   );

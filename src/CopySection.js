@@ -6,8 +6,9 @@ import * as THREE from "three";
 import { Scene } from "./SVG";
 import { folder, useControls } from "leva";
 import { fontOptions } from "./assets/fonts";
+import ThreeDText from "./ThreeDText";
 
-export const SecondSection = ({ position, headingText, bodyText }) => {
+export const CopySection = ({ position, preHeadingText, headingText, threeDText, threeDTextLine2, bodyText }) => {
   const { viewport } = useThree();
   const breakpoint = 4;
   const paperTexture = useLoader(
@@ -60,15 +61,15 @@ export const SecondSection = ({ position, headingText, bodyText }) => {
 
   return (
     <>
-      {/**
-      <mesh
+      
+      {/* <mesh
         scale={[viewport.width, viewport.height - 1, 1]}
         position={position}
       >
         <planeGeometry />
         <meshBasicMaterial attach="material" map={paperTexture} />
-      </mesh>
-       */}
+      </mesh> */}
+      
       <group
         // position={viewport.width > breakpoint ? [0, .5, 0] : [0, -.7, 0]}
         position={[0, 1.3, 0]}
@@ -94,6 +95,20 @@ export const SecondSection = ({ position, headingText, bodyText }) => {
               centerAnchor={true}
               marginLeft={viewport.width > breakpoint ? 0.4 : 0}
             >
+
+              {preHeadingText ? (
+                <Text
+                  anchorY="top"
+                  position={[0, .5, 0]}
+                  color={colorFirstLine}
+                  scale={scaleFirstLine == 0 ? 1 : scaleFirstLine}
+                  maxWidth={viewport.width > breakpoint ? 3 : 1.75}
+                  font={`./fonts/proxima-nova.otf`}
+                >
+                  {preHeadingText}
+                </Text>
+              ) : null}
+
               <Text
                 color={colorFirstLine}
                 scale={scaleFirstLine == 0 ? 4 : scaleFirstLine}
@@ -102,6 +117,27 @@ export const SecondSection = ({ position, headingText, bodyText }) => {
               >
                 {headingText}
               </Text>
+
+              {threeDText ? (
+                <ThreeDText
+                  headerText={threeDText}
+                  headerColor={'teal'} 
+                  headerPositionY={-.9}
+                  headerDepth={.5}
+                  headerScale={0}
+                />
+              ) : null}
+
+              {threeDTextLine2 ? (
+                <ThreeDText
+                  headerText={threeDTextLine2}
+                  headerColor={'teal'} 
+                  headerPositionY={-1.5}
+                  headerDepth={.5}
+                  headerScale={0}
+                />
+              ) : null}
+
               {/**
               <Text
                 anchorY="top"
@@ -117,9 +153,9 @@ export const SecondSection = ({ position, headingText, bodyText }) => {
               <Text
                 anchorY="top"
                 color={colorBody}
-                position={[0, -0.8, 0]}
+                position={[0, threeDTextLine2 ? -1.9 : -1.2, 0]}
                 textAlign="left"
-                maxWidth={viewport.width > breakpoint ? 3 : 1.75}
+                maxWidth={viewport.width > breakpoint ? 2.5 : 1.75}
                 scale={scaleBody == 0 ? 1.3 : scaleBody}
                 font={`./fonts/${fontBody}.otf`}
               >
@@ -127,13 +163,15 @@ export const SecondSection = ({ position, headingText, bodyText }) => {
               </Text>
             </Box>
           </Box>
-          {showSnowman ? (
+
+          {/* {showSnowman ? (
             <mesh position={[0, 0.4, 0]}>
               <Box centerAnchor={true}>
                 <Scene color={colorSnowman} position={positionSnowman} />
               </Box>
             </mesh>
-          ) : null}
+          ) : null} */}
+
         </Flex>
       </group>
     </>
