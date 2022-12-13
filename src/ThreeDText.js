@@ -26,8 +26,6 @@ export default function ThreeDText({
     }
   }
 
-  console.log('Hedaer text', headerText)
-
   return (
     <mesh position={[-textWidth / 2, headerPositionY, 0]} ref={mesh}>
       
