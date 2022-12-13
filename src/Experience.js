@@ -23,7 +23,7 @@ import { Leva, folder, useControls } from "leva";
 import * as THREE from "three";
 import { Main } from "./Main.js";
 
-export default function Experience({ position }) {
+export default function Experience({ position, modalIsOpen, setModalIsOpen }) {
   const { viewport } = useThree();
 
   const {
@@ -242,9 +242,9 @@ export default function Experience({ position }) {
             {/* <Float rotationIntensity={ 1.5 }> */}
             {/* Picture frame with trees scene model */}
             <Main
-              scale={
-                viewport.width > 5 ? viewport.width / 10 : viewport.width / 6
-              }
+              scale={viewport.width > 5 ? viewport.width / 10 : viewport.width / 6}
+              modalIsOpen={modalIsOpen}
+              setModalIsOpen={setModalIsOpen} 
             />
             {/* </Float> */}
           </PresentationControls>
