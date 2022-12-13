@@ -59,7 +59,7 @@ export default function Hero() {
         textHeader: '2022',
         colorHeader: "teal",
         yPosHeader: { value: 0, min: -Math.PI, max: Math.PI },
-        depthHeader: { value: 0.9, min: 0, max: 2 },
+        depthHeader: { value: 0.7, min: 0, max: 2 },
         scaleHeader: { value: 0, min: 0, max: 2 },
       }),
 
