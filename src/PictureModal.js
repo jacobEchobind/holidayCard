@@ -12,7 +12,7 @@ export function PictureModal({modalIsOpen, setModalIsOpen}) {
       >
         <button 
           onClick={() => setModalIsOpen(false)}
-          style={{position: 'fixed', right: '80px', top: '80px', background:'transparent', border: 0, cursor: 'pointer'}}
+          style={{position: 'fixed', right: '80px', top: '70px', background:'transparent', border: 0, cursor: 'pointer'}}
         >
           <img src='/close.png' style={{width:'50px'}} alt='Close Button'/>
         </button>
