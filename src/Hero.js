@@ -33,9 +33,7 @@ export default function Hero() {
   });
 
   const {
-    textHeader,
     colorHeader,
-    yPosHeader,
     depthHeader,
     scaleHeader,
     textSub,
@@ -43,7 +41,6 @@ export default function Hero() {
     subSize,
     subColor,
     xSubPosition,
-    ySubPosition,
     zSubPosition,
 
     EBScale,
@@ -56,9 +53,7 @@ export default function Hero() {
     "Hero Section",
     {
       Header: folder({
-        textHeader: '2022',
         colorHeader: "teal",
-        yPosHeader: { value: 0, min: -Math.PI, max: Math.PI },
         depthHeader: { value: 0.7, min: 0, max: 2 },
         scaleHeader: { value: 0, min: 0, max: 2 },
       }),
@@ -69,7 +64,6 @@ export default function Hero() {
         subSize: { value: 0, min: 0, max: 1 },
         subColor: { value: "white" },
         xSubPosition: { value: 0, min: -3, max: 3 },
-        ySubPosition: { value: 0.3, min: -3, max: 3 },
         zSubPosition: { value: 0, min: -3, max: 3 },
       }),
 
@@ -108,12 +102,13 @@ export default function Hero() {
 
       <Flex
         dir="column"
+        position={[0,0,0]}
         size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
         alignItems="center"
-        centerAnchor={true}
         justifyContent="center"
+        centerAnchor={true}
       >
-          <Box  centerAnchor={true}>
+        <Box  centerAnchor={true}>
           <primitive
             object={EBLogo.scene}
             scale={
@@ -123,28 +118,19 @@ export default function Hero() {
                   : 0.0003
                 : EBScale
             }
-            position={[EBXPosition, EBYPosition, EBZPosition]}
+            position={[EBXPosition, 1.5, EBZPosition]}
             rotation={[EBXRotation, EBYRotation, 0]}
           />
-        </Box>
 
-
-        {/*  H A P P Y   H O L I D A Y S  */}
-        <Box 
-          centerAnchor={true}
-          width="100%"
-        >
+          {/*  H A P P Y   H O L I D A Y S  */}
           <ThreeDText
             headerText={'2022'}
-            // headerText={textHeader}
             headerColor={colorHeader} 
-            headerPositionY={yPosHeader}
+            headerPositionY={.2}
             headerDepth={depthHeader}
             headerScale={scaleHeader}
           />
-        </Box>
 
-        <Box marginTop={0.3} centerAnchor={true}>
           <Text
             font={`./fonts/${fontSub}.otf`}
             fontSize={
@@ -154,21 +140,16 @@ export default function Hero() {
                   : 0.5
                 : subSize
             }
-            position={[xSubPosition, ySubPosition, zSubPosition]}
+            position={[xSubPosition, -.3, zSubPosition]}
             maxWidth={viewport.width}
             textAlign="center"
             color={subColor}
           >
             {textSub}
           </Text>
-        </Box>
         
-        <Box 
-          centerAnchor={true}
-        >
           <Text
-          position={[0, .4, 0]}
-            anchorY="top"
+            position={[0, -1.1, 0]}
             color="white"
             textAlign="center"
             maxWidth={viewport.width > 4 ? 2.3 : 1.75}

@@ -19,10 +19,7 @@ export function Main(props) {
         // onClick={() => {console.log('frame clicked')}}
         geometry={nodes.frame.geometry} material={materials.frame} position={[-0.02, 1.27, -1.89]} rotation={[Math.PI, -0.02, Math.PI]} />
       <mesh 
-        onClick={() => {
-          console.log('photo clicked');
-          props.setModalIsOpen(true)
-        }}
+        onClick={() => props.setModalIsOpen(true)}
         geometry={nodes.photo.geometry} material={materials.photo} position={[-0.02, 1.24, -1.89]} rotation={[Math.PI, -0.02, Math.PI]} scale={0.09} />
       <mesh geometry={nodes.glass.geometry} material={materials.glass} position={[-0.02, 1.27, -1.89]} rotation={[0, 0.02, 0]} />
     </group>

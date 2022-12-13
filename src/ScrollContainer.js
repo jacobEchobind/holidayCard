@@ -53,10 +53,10 @@ const ScrollContainer = ({modalIsOpen, setModalIsOpen}) => {
         />
         <CopySection
           position={[0, -viewport.height * 6, 0]}
-          preHeadingText="Last but not least... "
+          preHeadingText="and last but not least... "
           headingText="we're thankful for"
           threeDText="You!"
-          bodyText="We couldn't do any of this without you. Thank you for being a part of our journey. We're excited to see what 2022 brings."
+          bodyText="We couldn't do any of this without you. Thank you for being a part of our journey. We're excited to see what 2023 brings."
         />
         <Experience position={[0, -viewport.height * 7, 0]} setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} />
         <directionalLight

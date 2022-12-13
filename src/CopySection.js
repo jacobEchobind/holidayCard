@@ -1,9 +1,6 @@
-import { useRef } from "react";
-import { useLoader, useThree } from "@react-three/fiber";
+import { useThree } from "@react-three/fiber";
 import { Flex, Box } from "@react-three/flex";
 import { Text } from "@react-three/drei";
-import * as THREE from "three";
-import { Scene } from "./SVG";
 import { folder, useControls } from "leva";
 import { fontOptions } from "./assets/fonts";
 import ThreeDText from "./ThreeDText";
@@ -11,24 +8,14 @@ import ThreeDText from "./ThreeDText";
 export const CopySection = ({ position, preHeadingText, headingText, threeDText, threeDTextLine2, bodyText }) => {
   const { viewport } = useThree();
   const breakpoint = 4;
-  const paperTexture = useLoader(
-    THREE.TextureLoader,
-    "./white-paper-texture.jpg"
-  );
 
   const {
     fontFirstLine,
     scaleFirstLine,
     colorFirstLine,
-    fontSecondLine,
-    scaleSecondLine,
-    colorSecondLine,
     fontBody,
     scaleBody,
     colorBody,
-    showSnowman,
-    colorSnowman,
-    positionSnowman,
   } = useControls(
     "Second Section",
     {
@@ -37,143 +24,84 @@ export const CopySection = ({ position, preHeadingText, headingText, threeDText,
         scaleFirstLine: { value: 0, min: 0, max: 10 },
         colorFirstLine: "white",
       }),
-      secondLine: folder({
-        fontSecondLine: { options: [...fontOptions] },
-        scaleSecondLine: { value: 0, min: 0, max: 10 },
-        colorSecondLine: "#006C87",
-      }),
       body: folder({
         fontBody: { options: ["proxima-nova", ...fontOptions] },
         scaleBody: { value: 0, min: 0, max: 10 },
         colorBody: "white",
-      }),
-      snowman: folder({
-        showSnowman: false,
-        colorSnowman: "#02313D",
-        positionSnowman: {
-          value: { x: 0.8, y: 0, z: 0 },
-          step: 0.1,
-        },
       }),
     },
     { collapsed: true }
   );
 
   return (
-    <>
-      
-      {/* <mesh
-        scale={[viewport.width, viewport.height - 1, 1]}
+    <group position={[0, 1.3, 0]}>
+      <Flex
+        dir="column"
         position={position}
+        size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
+        alignItems="center"
+        justifyContent="center"
+        centerAnchor={true}
       >
-        <planeGeometry />
-        <meshBasicMaterial attach="material" map={paperTexture} />
-      </mesh> */}
-      
-      <group
-        // position={viewport.width > breakpoint ? [0, .5, 0] : [0, -.7, 0]}
-        position={[0, 1.3, 0]}
-      >
-        <Flex
-          dir="column"
-          position={position}
-          size={[viewport.width, viewport.height, 0]} // xyz size to constrain content to
-          alignItems="center"
-          justifyContent="center"
+        <Box
           centerAnchor={true}
+          marginLeft={viewport.width > breakpoint ? 0.4 : 0}
         >
-          <Box
-            dir="row"
-            justifyContent="center"
-            alignItems="center"
-            centerAnchor={false}
-            flexWrap="wrap"
-            width="100%"
-            height="100%"
-          >
-            <Box
-              centerAnchor={true}
-              marginLeft={viewport.width > breakpoint ? 0.4 : 0}
+          {preHeadingText ? (
+            <Text
+              anchorY="top"
+              position={[0, .5, 0]}
+              color={colorFirstLine}
+              scale={scaleFirstLine == 0 ? 2 : scaleFirstLine}
+              maxWidth={viewport.width > breakpoint ? 3 : 1.75}
+              font={`./fonts/${fontFirstLine}.otf`}
             >
+              {preHeadingText}
+            </Text>
+          ) : null}
 
-              {preHeadingText ? (
-                <Text
-                  anchorY="top"
-                  position={[0, .5, 0]}
-                  color={colorFirstLine}
-                  scale={scaleFirstLine == 0 ? 1 : scaleFirstLine}
-                  maxWidth={viewport.width > breakpoint ? 3 : 1.75}
-                  font={`./fonts/proxima-nova.otf`}
-                >
-                  {preHeadingText}
-                </Text>
-              ) : null}
+          <Text
+            color={colorFirstLine}
+            scale={scaleFirstLine == 0 ? 4 : scaleFirstLine}
+            maxWidth={viewport.width > breakpoint ? 3 : 1.75}
+            font={`./fonts/${fontFirstLine}.otf`}
+          >
+            {headingText}
+          </Text>
 
-              <Text
-                color={colorFirstLine}
-                scale={scaleFirstLine == 0 ? 4 : scaleFirstLine}
-                maxWidth={viewport.width > breakpoint ? 3 : 1.75}
-                font={`./fonts/${fontFirstLine}.otf`}
-              >
-                {headingText}
-              </Text>
+          {threeDText ? (
+            <ThreeDText
+              headerText={threeDText}
+              headerColor={'teal'} 
+              headerPositionY={-.9}
+              headerDepth={.5}
+              headerScale={0}
+            />
+          ) : null}
 
-              {threeDText ? (
-                <ThreeDText
-                  headerText={threeDText}
-                  headerColor={'teal'} 
-                  headerPositionY={-.9}
-                  headerDepth={.5}
-                  headerScale={0}
-                />
-              ) : null}
+          {threeDTextLine2 ? (
+            <ThreeDText
+              headerText={threeDTextLine2}
+              headerColor={'teal'} 
+              headerPositionY={-1.5}
+              headerDepth={.5}
+              headerScale={0}
+            />
+          ) : null}
 
-              {threeDTextLine2 ? (
-                <ThreeDText
-                  headerText={threeDTextLine2}
-                  headerColor={'teal'} 
-                  headerPositionY={-1.5}
-                  headerDepth={.5}
-                  headerScale={0}
-                />
-              ) : null}
-
-              {/**
-              <Text
-                anchorY="top"
-                position={[0, -0.2, 0]}
-                color={colorSecondLine}
-                scale={scaleSecondLine == 0 ? 4 : scaleSecondLine}
-                maxWidth={viewport.width > breakpoint ? 3 : 1.75}
-                font={`./fonts/${fontSecondLine}.otf`}
-              >
-                season approaches...
-              </Text>
-              */}
-              <Text
-                anchorY="top"
-                color={colorBody}
-                position={[0, threeDTextLine2 ? -1.9 : -1.2, 0]}
-                textAlign="left"
-                maxWidth={viewport.width > breakpoint ? 2.5 : 1.75}
-                scale={scaleBody == 0 ? 1.3 : scaleBody}
-                font={`./fonts/${fontBody}.otf`}
-              >
-                {bodyText}
-              </Text>
-            </Box>
-          </Box>
-
-          {/* {showSnowman ? (
-            <mesh position={[0, 0.4, 0]}>
-              <Box centerAnchor={true}>
-                <Scene color={colorSnowman} position={positionSnowman} />
-              </Box>
-            </mesh>
-          ) : null} */}
-
-        </Flex>
-      </group>
-    </>
+          <Text
+            anchorY="top"
+            color={colorBody}
+            position={[0, threeDTextLine2 ? -1.9 : -1.2, 0]}
+            textAlign="center"
+            maxWidth={viewport.width > breakpoint ? 2.5 : 1.75}
+            scale={scaleBody == 0 ? 1.3 : scaleBody}
+            font={`./fonts/${fontBody}.otf`}
+          >
+            {bodyText}
+          </Text>
+        </Box>
+      </Flex>
+    </group>
   );
 };
