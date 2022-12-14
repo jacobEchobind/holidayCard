@@ -22,6 +22,7 @@ import { BlendFunction } from "postprocessing";
 import { Leva, folder, useControls } from "leva";
 import * as THREE from "three";
 import { Main } from "./Main.js";
+import { Drawing } from './Drawing.js'
 
 export default function Experience({ position, modalIsOpen, setModalIsOpen }) {
   const { viewport } = useThree();
@@ -241,6 +242,7 @@ export default function Experience({ position, modalIsOpen, setModalIsOpen }) {
           >
             {/* <Float rotationIntensity={ 1.5 }> */}
             {/* Picture frame with trees scene model */}
+            <Drawing scale={viewport.width > 5 ? viewport.width / 10 : viewport.width / 6} position={[1, 2.5, -1]}/>
             <Main
               scale={viewport.width > 5 ? viewport.width / 10 : viewport.width / 6}
               modalIsOpen={modalIsOpen}
